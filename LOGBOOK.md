@@ -25,5 +25,5 @@
   * Adição da Janela Home
   * Divisão das classes em pacotes (Packages)
   
-  Iniciei a programação das classes Curso e Endereco criando seus atributos, construtores e métodos de acesso getters e setters. Adicionei ao projeto a tela Home que será a tela inicial do projeto e que irá receber as outras telas dentro dela, porém ainda não desenvolvi o seu design. Dividi as classes e janelas em quatro pacotes para ficarem mais organiadas (aluno, curso, frames, pessoa).
+  Iniciei a programação das classes Curso e Endereco criando seus atributos, construtores e métodos de acesso getters e setters. Adicionei ao projeto a tela Home que será a tela inicial do projeto e que irá receber as outras telas dentro dela, porém ainda não desenvolvi o seu design. Dividi as classes e janelas em quatro pacotes para ficarem mais organiadas (aluno, curso, frames, pessoa), foi necessário alterar a visibilidade dos construtores da classe Pessoas para *protected* para a classe Aluno conseguir acessa-la
    
