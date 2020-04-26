@@ -1,9 +1,9 @@
-## cadastro_alunos
+# cadastro_alunos
 Tela de cadastro de alunos e notas (atividade faculdade)
 
 Utilizando a linguagem de programação JAVA e o Banco de Dados mySQL, desenvolver o Sistema de Cadastrado de Aluno. 
 
-### REGRAS DO PROJETO
+## REGRAS DO PROJETO
 
 - Você é o responsável por desenvolver as telas conforme segue e na tela de boletim, você poderá usar a sua criatividade para desenvolvê-la, mas seguindo os padrões apresentados na GUI.
 
