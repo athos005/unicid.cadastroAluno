@@ -1,6 +1,7 @@
 **21/04**
 
 * Início do Projeto
+* Definição dos atributos das telas
 * Desenvolvimento da tela Aluno
 
   A tela Aluno será possível realizar o cadastro, consulta, alterção e exclusão de um aluno no sistema. Dentro desta tela adicionei um JTalbbedPane que contém três JPanel, onde estão dividadas as informações do aluno em Dados Pessoais, Endereço e Curso, respectivamente. 
@@ -27,3 +28,8 @@
   
   Iniciei a programação das classes Curso e Endereco criando seus atributos, construtores e métodos de acesso getters e setters. Adicionei ao projeto a tela Home que será a tela inicial do projeto e que irá receber as outras telas dentro dela, porém ainda não desenvolvi o seu design. Dividi as classes e janelas em quatro pacotes para ficarem mais organiadas (aluno, curso, frames, pessoa), foi necessário alterar a visibilidade dos construtores da classe Pessoas para *protected* para a classe Aluno conseguir acessa-la
    
+**26/04**
+
+ * Criação do banco de dados
+ 
+  Desenvolvi o banco de dados, em MySql, do projeto me baseando nos atributos e relacionamento de classes que há até o momento 
