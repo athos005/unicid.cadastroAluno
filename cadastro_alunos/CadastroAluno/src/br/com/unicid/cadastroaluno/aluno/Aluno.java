@@ -1,5 +1,7 @@
 package br.com.unicid.cadastroaluno.aluno;
 
+import br.com.unicid.cadastroaluno.pessoa.Pessoa;
+
 public class Aluno extends Pessoa{
 		
 	private int rgm;
@@ -8,7 +10,6 @@ public class Aluno extends Pessoa{
 	private String notaDisciplina;
 	private int faltasDisciplina;
 		
-
 	public int getRgm() {
 		return rgm;
 	}

@@ -57,6 +57,7 @@ public class frmNotasFaltas extends JFrame {
 	 * Create the frame.
 	 */
 	public frmNotasFaltas() {
+		setTitle("Notas & Faltas");
 		setMinimumSize(new Dimension(450, 600));
 		setMaximumSize(new Dimension(450, 600));
 		setResizable(false);
