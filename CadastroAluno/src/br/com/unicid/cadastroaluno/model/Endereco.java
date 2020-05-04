@@ -7,16 +7,16 @@ public class Endereco {
 	private String endereco;
 	private String bairro;
 	private String complemento;
-	private int numero;
+	private String numCasa;
 	private String uf;
 	private String cidade;
 
 	
-	public int getCodEndPessoa() {
+	public int getCodEndereco() {
 		return this.codEndereco;
 	}
 	
-	public void setCodEndPessoa(int codEndereco) {
+	public void setCodEndereco(int codEndereco) {
 		this.codEndereco = codEndereco;
 	}
 	
@@ -52,12 +52,12 @@ public class Endereco {
 		this.complemento = complemento;
 	}
 	
-	public int getNumero() {
-		return this.numero;
+	public String getNumero() {
+		return this.numCasa;
 	}
 	
-	public void setNumero(int numero) {
-		this.numero = numero;
+	public void setNumero(String numero) {
+		this.numCasa = numero;
 	}
 	
 	public String getUf() {

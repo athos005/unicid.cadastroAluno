@@ -11,6 +11,7 @@ import br.com.unicid.cadastroaluno.connection.ConnectionDB;
 import br.com.unicid.cadastroaluno.model.Aluno;
 import br.com.unicid.cadastroaluno.model.Endereco;
 import br.com.unicid.cadastroaluno.model.Pessoa;
+import br.com.unicid.cadastroaluno.view.frmAluno;
 
 public class EnderecoDAO{
 
@@ -30,7 +31,7 @@ public class EnderecoDAO{
 	}
 
 	public void salvaEndereco(Endereco endereco) throws Exception {
-		
+
 		try {
 
 			String sql = "INSERT INTO endereco(cep, endereco, bairro, complemento, numero, uf, cidade)" + "VALUES(?,?,?,?,?,?,?)";
@@ -40,7 +41,7 @@ public class EnderecoDAO{
 			ps.setString(2, endereco.getEndereco());
 			ps.setString(3, endereco.getBairro());
 			ps.setString(4, endereco.getComplemento());
-			ps.setInt(5, endereco.getNumero());
+			ps.setString(5, endereco.getNumero());
 			ps.setString(6, endereco.getUf());
 			ps.setString(7, endereco.getCidade());
 			ps.executeUpdate();
@@ -56,5 +57,29 @@ public class EnderecoDAO{
 		catch(Exception e) {
 			throw new Exception("Erro ao Salvar" + e.getMessage());
 		}
-	}	
+	}
+
+	public void consultarEndereco(int codEndereco) throws Exception {
+
+		try {
+			ps = conn.prepareStatement("SELECT * FROM endereco WHERE cod_endereco=?");
+			ps.setInt(1, codEndereco);
+			rs = ps.executeQuery(); 
+			if(rs.next()) {
+				endereco = frmAluno.aluno;
+				endereco.setCep(rs.getString("cep"));
+				endereco.setEndereco(rs.getString("endereco"));
+				endereco.setBairro(rs.getString("bairro"));
+				endereco.setComplemento(rs.getString("complemento"));
+				endereco.setNumero(rs.getString("numero"));
+				endereco.setUf(rs.getString("uf"));
+				endereco.setCidade(rs.getString("cidade"));
+				ps.close();
+			}
+
+		}
+		catch (Exception e) {
+			throw new Exception("Erro ao consultar" + e.getMessage());
+		}
+	}
 }

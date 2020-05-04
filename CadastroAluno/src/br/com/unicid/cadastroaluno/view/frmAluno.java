@@ -66,7 +66,7 @@ public class frmAluno extends JFrame {
 	public JTextField txtComplemento;
 	public JLabel lblNome_4;
 	public JTextField txtCidade;
-	public JComboBox cmbEstado;
+	public JComboBox cmbUF;
 	public JLabel lblNome_5;
 	public JPanel panel_2;
 	public JPanel pnlCurso;
@@ -191,12 +191,12 @@ public class frmAluno extends JFrame {
 		cmbGenero.setEnabled(false);
 		cmbGenero.setBounds(140, 229, 160, 30);
 		panel.add(cmbGenero);
-		
+
 		lblCelular_1 = new JLabel("NASCIMENTO");
 		lblCelular_1.setFont(new Font("Malgun Gothic", Font.BOLD, 12));
 		lblCelular_1.setBounds(0, 201, 81, 17);
 		panel.add(lblCelular_1);
-		
+
 		txtDataNascimento = new JFormattedTextField();
 		txtDataNascimento.setEnabled(false);
 		txtDataNascimento.setBounds(0, 229, 130, 30);
@@ -308,11 +308,11 @@ public class frmAluno extends JFrame {
 		panel_2.add(txtCidade);
 		txtCidade.setColumns(10);
 
-		cmbEstado = new JComboBox();
-		cmbEstado.setEnabled(false);
-		cmbEstado.setModel(new DefaultComboBoxModel(new String[] {"- Selecione", "SP"}));
-		cmbEstado.setBounds(210, 292, 90, 30);
-		panel_2.add(cmbEstado);
+		cmbUF = new JComboBox();
+		cmbUF.setEnabled(false);
+		cmbUF.setModel(new DefaultComboBoxModel(new String[] {"- Selecione", "SP"}));
+		cmbUF.setBounds(210, 292, 90, 30);
+		panel_2.add(cmbUF);
 
 		lblNome_5 = new JLabel("UF");
 		lblNome_5.setBounds(210, 267, 44, 17);
@@ -396,6 +396,8 @@ public class frmAluno extends JFrame {
 		contentPane.add(panel_3);
 		panel_3.setLayout(null);
 
+		/*CADASTRAR*/
+
 		btnNovo = new JButton("");
 		btnNovo.setToolTipText("Novo");
 		btnNovo.setIcon(new ImageIcon("C:\\Users\\athos\\Google Drive\\Analise e desenvolvimento de sistemas\\3\u00BA Semestre\\Tecnicas de Programa\u00E7\u00E3o\\cadastro_alunos\\unicid.cadastroAluno\\CadastroAluno\\icons\\new.png"));
@@ -410,7 +412,9 @@ public class frmAluno extends JFrame {
 
 					try {
 
-						aluno = new Aluno(txtNome.getText(), txtCpf.getText());
+						aluno = new Aluno();
+						aluno.setNome(txtNome.getText()); 
+						aluno.setCpf(txtCpf.getText());
 						aluno.setDataNascimento(txtDataNascimento.getText());
 						aluno.setGenero(cmbGenero);
 						aluno.setEmail(txtEmail.getText());
@@ -420,14 +424,14 @@ public class frmAluno extends JFrame {
 						aluno.setPeriodo(rdbMatutino, rdbNoturno, rdbNoturno);
 						aluno.setCep(txtCep.getText());
 						aluno.setEndereco(txtEndereco.getText());
-						aluno.setNumero(Integer.parseInt(txtNumero.getText()));
+						aluno.setNumero(txtNumero.getText());
 						aluno.setComplemento(txtComplemento.getText());
 						aluno.setBairro(txtBairro.getText());
 						aluno.setCidade(txtCidade.getText());
-						aluno.setUf(cmbEstado.getSelectedItem().toString());
-						
+						aluno.setUf(cmbUF.getSelectedItem().toString());
+
 						aluno.salvarAluno();
-						
+
 						habilitarCampos = false;
 					} 
 
@@ -438,19 +442,21 @@ public class frmAluno extends JFrame {
 
 				}
 				else {
-					f.limpaComponentes(txtRgm, txtNome, txtCpf, txtEmail, txtCelular, txtTelefone); //Limpa os campos do panel Alunos
+					f.limpaComponentes(txtRgm, txtNome, txtCpf, txtEmail, txtEmail, txtCelular, txtTelefone); //Limpa os campos do panel Alunos
 					f.limpaComponentes(txtCep, txtEndereco, txtNumero, txtComplemento, txtBairro, txtCidade); //Limpa os campos do panel Endereço
 					f.habilitaComponentes(txtRgm, txtNome, txtCpf, txtDataNascimento, txtEmail, txtCelular, txtTelefone); //Habilita os campos do panel Alunos
 					f.habilitaComponentes(txtCep, txtEndereco, txtNumero, txtComplemento, txtBairro, txtCidade); //Habilita os campos do panel Endereço
-					f.habilitaComponentes(cmbCurso, cmbEstado, cmbUnidade);
+					f.habilitaComponentes(cmbCurso, cmbUF, cmbUnidade);
 					f.habilitaComponentes(rdbMatutino, rdbNoturno, rdbVespertino);
-					f.resetCombo(cmbCurso, cmbEstado, cmbUnidade); //Coloca os combos do formulário na posição inicial
+					f.resetCombo(cmbCurso, cmbUF, cmbUnidade); //Coloca os combos do formulário na posição inicial
 					cmbGenero.setEnabled(true);
 					btnNovo.setText("Cadastrar"); 
 					habilitarCampos = true;
 				}
 			}
 		});
+
+		/*CONSULTAR*/
 
 		btnNovo.setMargin(new Insets(0, 0, 0, 0));
 		btnNovo.setFont(new Font("Malgun Gothic", Font.PLAIN, 11));
@@ -465,31 +471,28 @@ public class frmAluno extends JFrame {
 				FerramentasFormulario f = new FerramentasFormulario();
 
 				if(habilitarCampos == true) {
-					
+
 					try {
-												
+
 						aluno = new Aluno();
 						aluno.setRgm(Integer.parseInt(txtRgm.getText()));
 						aluno.consultarAluno(aluno.getRgm());
-						
-						System.out.println("Funcionou " + aluno.getNome());
-						
+
+						txtCpf.setText(aluno.getCpf());
 						txtNome.setText(aluno.getNome());
-						
-						String periodo = aluno.getPeriodo();
-											
-						if(periodo == "Matutino") {
-							rdbMatutino.setSelected(true);
-							System.out.println(periodo);
-						}
-						else 
-							if(periodo == "Vespertino") {
-								rdbVespertino.setSelected(true);
-							}
-							else 
-								if(periodo == "Noturno") {
-									rdbNoturno.setSelected(true);
-								}
+						txtDataNascimento.setText(aluno.getDataNascimento());
+						cmbGenero.setSelectedIndex(aluno.getGenero(cmbGenero));
+						txtEmail.setText(aluno.getEmail());
+						txtCelular.setText(aluno.getCelular());
+						txtTelefone.setText(aluno.getTelefone());
+						txtCep.setText(aluno.getCep());
+						txtEndereco.setText(aluno.getEndereco());
+						txtNumero.setText(aluno.getNumero());
+						txtComplemento.setText(aluno.getComplemento());
+						txtBairro.setText(aluno.getBairro());
+						txtCidade.setText(aluno.getCidade());
+						//cmbUF.setSelectedIndex(anIndex);
+						aluno.getPeriodo(rdbMatutino, rdbVespertino, rdbNoturno);
 						habilitarCampos = false;
 					} 
 
@@ -498,13 +501,13 @@ public class frmAluno extends JFrame {
 					}
 				}
 				else {
-					f.limpaComponentes(txtRgm, txtNome, txtCpf, txtEmail, txtCelular, txtTelefone);
+					f.limpaComponentes(txtRgm, txtNome, txtCpf, txtEmail, txtEmail, txtCelular, txtTelefone);
 					f.limpaComponentes(txtCep, txtEndereco, txtNumero, txtComplemento, txtBairro, txtCidade); 
 					f.desabilitaComponentes(txtNome, txtEmail, txtCelular, txtTelefone); 
 					f.desabilitaComponentes(txtCep, txtEndereco, txtNumero, txtComplemento, txtBairro, txtCidade); 
-					f.desabilitaComponentes(cmbCurso, cmbEstado, cmbUnidade);
+					f.desabilitaComponentes(cmbCurso, cmbUF, cmbUnidade);
 					f.desabilitaComponentes(rdbMatutino, rdbNoturno, rdbVespertino);
-					f.resetCombo(cmbCurso, cmbEstado, cmbUnidade);
+					f.resetCombo(cmbCurso, cmbUF, cmbUnidade);
 					cmbGenero.setEnabled(false);
 					txtRgm.setEnabled(true);
 					txtCpf.setEnabled(true);

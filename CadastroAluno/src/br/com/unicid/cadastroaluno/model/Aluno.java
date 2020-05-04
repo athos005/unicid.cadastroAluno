@@ -63,6 +63,26 @@ public class Aluno extends Pessoa{
 		return this.periodo;
 	}
 
+	public boolean getPeriodo(JRadioButton matutino, JRadioButton vespertino, JRadioButton noturno) {
+
+		boolean selecionado = true;
+		String periodo = this.periodo;
+
+		if(periodo == "Matutino") {
+			matutino.isSelected();
+		}
+		else 
+			if(periodo == "Vespertino") {
+				vespertino.isSelected();
+			}
+			else 
+				if(periodo == "Noturno") {
+					noturno.isSelected();
+				}
+
+		return selecionado;
+	}
+
 	public void setPeriodo(String periodo) {
 		this.periodo = periodo;
 	}
@@ -114,7 +134,6 @@ public class Aluno extends Pessoa{
 
 
 	/*MÉTODOS DA CLASSE*/
-	/*------------------------------------*/
 
 	public void salvarAluno() throws Exception {
 
@@ -125,10 +144,10 @@ public class Aluno extends Pessoa{
 	}
 
 	public void consultarAluno(int rgmAluno) throws Exception{
-		
+
 		AlunoDAO DAOaluno = new AlunoDAO();
 		DAOaluno.consultarAluno(rgmAluno);
 		connsultarCadastro();
-	
+
 	}
 }

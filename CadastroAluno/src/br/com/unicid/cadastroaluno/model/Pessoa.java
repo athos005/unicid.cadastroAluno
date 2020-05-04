@@ -64,6 +64,21 @@ public class Pessoa extends Endereco{
 		return this.genero;
 	}
 	
+	public int getGenero(JComboBox<?> ComboGenero) {
+		int index = 0;
+		
+		if(this.genero == "M") {
+			index = 0;
+		} else {
+			index = 1;
+		}
+		
+		ComboGenero.setSelectedIndex(index);
+		
+		return index; 
+		
+	}
+	
 	public void setGenero(String genero) {
 		this.genero = genero;
 	}
@@ -120,5 +135,8 @@ public class Pessoa extends Endereco{
 		
 		PessoaDAO DAOpessoa = new PessoaDAO();
 		DAOpessoa.consultarPessoa(frmAluno.aluno.getCodPessoa());
+		
+		EnderecoDAO DAOendereco = new EnderecoDAO();
+		DAOendereco.consultarEndereco(frmAluno.aluno.getCodEndereco());
 	}
 }

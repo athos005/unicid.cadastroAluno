@@ -33,15 +33,16 @@ public class PessoaDAO {
 	public void salvarPessoa(Pessoa pessoa) throws Exception{				
 
 		try {
-			String sql = "INSERT INTO pessoa(nome, cpf, genero, email, celular, telefone, cod_Endereco)" + "VALUES(?,?,?,?,?,?,?)";
+			String sql = "INSERT INTO pessoa(nome, cpf, nascimento, genero, email, celular, telefone, cod_Endereco)" + "VALUES(?,?,?,?,?,?,?,?)";
 			ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			ps.setString(1, pessoa.getNome());
 			ps.setString(2, pessoa.getCpf());
-			ps.setString(3, pessoa.getGereno());
-			ps.setString(4, pessoa.getEmail());
-			ps.setString(5, pessoa.getCelular());
-			ps.setString(6, pessoa.getTelefone());
-			ps.setInt(7, EnderecoDAO.codEndereco);
+			ps.setString(3, pessoa.getDataNascimento());
+			ps.setString(4, pessoa.getGereno());
+			ps.setString(5, pessoa.getEmail());
+			ps.setString(6, pessoa.getCelular());
+			ps.setString(7, pessoa.getTelefone());
+			ps.setInt(8, EnderecoDAO.codEndereco);
 			ps.executeUpdate();
 
 			rs = ps.getGeneratedKeys();  
@@ -65,6 +66,14 @@ public class PessoaDAO {
 			if(rs.next()) {
 				pessoa = frmAluno.aluno;
 				pessoa.setNome(rs.getString("nome"));
+				pessoa.setCpf(rs.getString("cpf"));
+				pessoa.setDataNascimento(rs.getString("nascimento"));
+				pessoa.setGenero(rs.getString("genero"));
+				pessoa.setEmail(rs.getString("email"));
+				pessoa.setCelular(rs.getString("celular"));
+				pessoa.setTelefone(rs.getString("Telefone"));
+				pessoa.setCodEndereco(rs.getInt("cod_endereco"));
+				ps.close();
 			}
 
 		}

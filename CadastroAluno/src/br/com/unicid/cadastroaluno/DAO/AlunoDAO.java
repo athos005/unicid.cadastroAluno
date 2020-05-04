@@ -101,6 +101,7 @@ public class AlunoDAO{
 				aluno = frmAluno.aluno;
 				aluno.setPeriodo(rs.getString("periodo"));
 				aluno.setCodPessoa(rs.getInt("cod_pessoa"));
+				ps.close();
 			}  
 		}
 		catch (Exception e) {
