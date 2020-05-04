@@ -16,7 +16,7 @@ import br.com.unicid.cadastroaluno.model.Aluno;
 import jdk.nashorn.internal.ir.SetSplitState;
 
 public class AlunoDAO{
-	
+
 	private Aluno aluno;
 	private Connection conn; //Conecta com o banco
 	private PreparedStatement ps; //executa a query
@@ -32,9 +32,9 @@ public class AlunoDAO{
 	}
 
 	public void salvarAluno(Aluno aluno) throws Exception{
-		System.out.println("Passou pelo AlunoDAO");
+
 		try {
-			
+
 			String sql = "INSERT INTO aluno(rgm, periodo, cod_pessoa)" + "VALUES(?,?,?)";
 
 			ps = conn.prepareStatement(sql);
@@ -50,6 +50,63 @@ public class AlunoDAO{
 		catch(Exception e) {
 			throw new Exception("Erro ao Salvar" + e.getMessage());
 		}
+	}
+
+	/*public void alterarAluno(Aluno aluno) throws Exception{
+
+		try {
+
+			String sql = "UPDATE aluno SET periodo=?" + "WHERE rgm";
+
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, aluno.getPeriodo());
+			ps.setInt(2, aluno.getRgm());
+			//ps.setInt(3, PessoaDAO.codPessoa);
+			ps.executeUpdate();
+
+			JOptionPane.showMessageDialog(null, "Salvo com Sucesso");
+
+			ps.close();
+		}
+		catch(Exception e) {
+			throw new Exception("Erro ao Alterar" + e.getMessage());
+		}
+	}*/
+
+	public void excluirAluno(int rgm) throws Exception{
+		try {
+
+			String sql = "DELETE FROM aluno" + "WHERE RGM=?";
+
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, rgm);
+			ps.executeUpdate();
+
+			JOptionPane.showMessageDialog(null, "Salvo com Sucesso");
+
+			ps.close();
+		}
+		catch(Exception e) {
+			throw new Exception("Erro ao Excluir" + e.getMessage());
+		}
+	}
+
+	public Aluno consultarAluno(int rgm) throws Exception {
+		try {
+			ps = conn.prepareStatement("SELECT * FROM aluno WHERE rgm=?");
+			ps.setInt(1, rgm);
+			rs = ps.executeQuery();
+			if(rs.next()) {
+				aluno = new Aluno();
+				aluno.setCodPessoa(rs.getInt("cod_pessoa"));
+				aluno.setPeriodo(rs.getString("periodo"));
+			}
+		} 
+		catch (Exception e) {
+			throw new Exception("Erro ao Consultar" + e.getMessage());
+		}
+		
+		return aluno;
 	}
 
 	public List listarTodos() throws Exception{

@@ -29,6 +29,7 @@ import javax.swing.text.MaskFormatter;
 
 import br.com.unicid.cadastroaluno.DAO.AlunoDAO;
 import br.com.unicid.cadastroaluno.model.Aluno;
+import br.com.unicid.cadastroaluno.model.Pessoa;
 
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
@@ -87,11 +88,13 @@ public class frmAluno extends JFrame {
 	public JButton btnExcluir;
 	public JButton btnCancelar;
 	public JPanel panel_3;
-	public static Aluno aluno;
-	private AlunoDAO dao;
 	public JComboBox cmbGenero;
 
-	protected int cont = 0;
+	public static Aluno aluno;
+	public static Pessoa pessoa;
+	private AlunoDAO dao;
+	protected boolean habilitarCampos;
+
 
 	/**
 	 * Launch the application.
@@ -382,18 +385,18 @@ public class frmAluno extends JFrame {
 
 		btnNovo = new JButton("");
 		btnNovo.setToolTipText("Novo");
-		btnNovo.setIcon(new ImageIcon("C:\\Users\\athos\\Google Drive\\Analise e desenvolvimento de sistemas\\3\u00BA Semestre\\Tecnicas de Programa\u00E7\u00E3o\\cadastro_alunos\\CadastroAluno\\icons\\new.png"));
+		btnNovo.setIcon(new ImageIcon("C:\\Users\\athos\\Google Drive\\Analise e desenvolvimento de sistemas\\3\u00BA Semestre\\Tecnicas de Programa\u00E7\u00E3o\\cadastro_alunos\\unicid.cadastroAluno\\CadastroAluno\\icons\\new.png"));
 		btnNovo.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnNovo.setBorder(null);
 		btnNovo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+
 				FerramentasFormulario f = new FerramentasFormulario();
-				
-				if(cont > 0) {
-					
+
+				if(habilitarCampos == true) {
+
 					try {
-						
+
 						aluno = new Aluno(txtNome.getText(), txtCpf.getText());
 						aluno.setGenero(cmbGenero);
 						aluno.setEmail(txtEmail.getText());
@@ -408,11 +411,13 @@ public class frmAluno extends JFrame {
 						aluno.setBairro(txtBairro.getText());
 						aluno.setCidade(txtCidade.getText());
 						aluno.setUf(cmbEstado.getSelectedItem().toString());
+						
 						aluno.salvarAluno();
 						
-						//aluno.salvarAluno();
+						habilitarCampos = false;
+					} 
 
-					} catch(Exception e){
+					catch(Exception e){
 						System.out.println("Erro ao salvar");
 						e.printStackTrace();
 					}
@@ -428,11 +433,11 @@ public class frmAluno extends JFrame {
 					f.resetCombo(cmbCurso, cmbEstado, cmbUnidade); //Coloca os combos do formulário na posição inicial
 					cmbGenero.setEnabled(true);
 					btnNovo.setText("Cadastrar"); 
-					cont++;
+					habilitarCampos = true;
 				}
 			}
 		});
-		
+
 		btnNovo.setMargin(new Insets(0, 0, 0, 0));
 		btnNovo.setFont(new Font("Malgun Gothic", Font.PLAIN, 11));
 		btnNovo.setBackground(Color.WHITE);
@@ -440,10 +445,64 @@ public class frmAluno extends JFrame {
 		panel_3.add(btnNovo);
 
 		btnConsultar = new JButton("");
+		btnConsultar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				FerramentasFormulario f = new FerramentasFormulario();
+
+				if(habilitarCampos == true) {
+					
+					try {
+						
+						/*dao = new AlunoDAO();
+						aluno = dao.consultarAluno(Integer.parseInt(txtRgm.getText()));*/
+						aluno = new Aluno();
+						aluno.ConsultarAluno(Integer.parseInt(txtRgm.getText()));
+						
+						System.out.println(aluno.getCodPessoa());
+						
+						
+						
+						String periodo = aluno.getPeriodo();
+											
+						if(periodo == "Matutino") {
+							rdbMatutino.setSelected(true);
+							System.out.println(periodo);
+						}
+						else 
+							if(periodo == "Vespertino") {
+								rdbVespertino.setSelected(true);
+							}
+							else 
+								if(periodo == "Noturno") {
+									rdbNoturno.setSelected(true);
+								}
+						habilitarCampos = false;
+					} 
+
+					catch (Exception e1) {
+						e1.printStackTrace();
+					}
+				}
+				else {
+					f.limpaComponentes(txtRgm, txtNome, txtCpf, txtEmail, txtCelular, txtTelefone);
+					f.limpaComponentes(txtCep, txtEndereco, txtNumero, txtComplemento, txtBairro, txtCidade); 
+					f.desabilitaComponentes(txtNome, txtEmail, txtCelular, txtTelefone); 
+					f.desabilitaComponentes(txtCep, txtEndereco, txtNumero, txtComplemento, txtBairro, txtCidade); 
+					f.desabilitaComponentes(cmbCurso, cmbEstado, cmbUnidade);
+					f.desabilitaComponentes(rdbMatutino, rdbNoturno, rdbVespertino);
+					f.resetCombo(cmbCurso, cmbEstado, cmbUnidade);
+					cmbGenero.setEnabled(false);
+					txtRgm.setEnabled(true);
+					txtCpf.setEnabled(true);
+					habilitarCampos = true;
+				}
+			}
+		});
 		btnConsultar.setBorderPainted(false);
 		btnConsultar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnConsultar.setBorder(null);
-		btnConsultar.setIcon(new ImageIcon("C:\\Users\\athos\\Google Drive\\Analise e desenvolvimento de sistemas\\3\u00BA Semestre\\Tecnicas de Programa\u00E7\u00E3o\\cadastro_alunos\\CadastroAluno\\icons\\search.png"));
+		btnConsultar.setIcon(new ImageIcon("C:\\Users\\athos\\Google Drive\\Analise e desenvolvimento de sistemas\\3\u00BA Semestre\\Tecnicas de Programa\u00E7\u00E3o\\cadastro_alunos\\unicid.cadastroAluno\\CadastroAluno\\icons\\search.png"));
 		btnConsultar.setToolTipText("Pesquisar");
 		btnConsultar.setFont(new Font("Malgun Gothic", Font.PLAIN, 11));
 		btnConsultar.setMargin(new Insets(0, 0, 0, 0));
@@ -452,7 +511,7 @@ public class frmAluno extends JFrame {
 		panel_3.add(btnConsultar);
 
 		btnAlterar = new JButton("");
-		btnAlterar.setIcon(new ImageIcon("C:\\Users\\athos\\Google Drive\\Analise e desenvolvimento de sistemas\\3\u00BA Semestre\\Tecnicas de Programa\u00E7\u00E3o\\cadastro_alunos\\CadastroAluno\\icons\\edit.png"));
+		btnAlterar.setIcon(new ImageIcon("C:\\Users\\athos\\Google Drive\\Analise e desenvolvimento de sistemas\\3\u00BA Semestre\\Tecnicas de Programa\u00E7\u00E3o\\cadastro_alunos\\unicid.cadastroAluno\\CadastroAluno\\icons\\edit.png"));
 		btnAlterar.setToolTipText("Alterar");
 		btnAlterar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnAlterar.setBorder(null);
@@ -463,7 +522,7 @@ public class frmAluno extends JFrame {
 		panel_3.add(btnAlterar);
 
 		btnExcluir = new JButton("");
-		btnExcluir.setIcon(new ImageIcon("C:\\Users\\athos\\Google Drive\\Analise e desenvolvimento de sistemas\\3\u00BA Semestre\\Tecnicas de Programa\u00E7\u00E3o\\cadastro_alunos\\CadastroAluno\\icons\\delete.png"));
+		btnExcluir.setIcon(new ImageIcon("C:\\Users\\athos\\Google Drive\\Analise e desenvolvimento de sistemas\\3\u00BA Semestre\\Tecnicas de Programa\u00E7\u00E3o\\cadastro_alunos\\unicid.cadastroAluno\\CadastroAluno\\icons\\delete.png"));
 		btnExcluir.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnExcluir.setBorder(null);
 		btnExcluir.setToolTipText("Excluir");
@@ -475,7 +534,7 @@ public class frmAluno extends JFrame {
 
 		btnCancelar = new JButton("");
 		btnCancelar.setToolTipText("Cancelar");
-		btnCancelar.setIcon(new ImageIcon("C:\\Users\\athos\\Google Drive\\Analise e desenvolvimento de sistemas\\3\u00BA Semestre\\Tecnicas de Programa\u00E7\u00E3o\\cadastro_alunos\\CadastroAluno\\icons\\cancel.png"));
+		btnCancelar.setIcon(new ImageIcon("C:\\Users\\athos\\Google Drive\\Analise e desenvolvimento de sistemas\\3\u00BA Semestre\\Tecnicas de Programa\u00E7\u00E3o\\cadastro_alunos\\unicid.cadastroAluno\\CadastroAluno\\icons\\cancel.png"));
 		btnCancelar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnCancelar.setBorder(null);
 		btnCancelar.setFont(new Font("Malgun Gothic", Font.PLAIN, 11));

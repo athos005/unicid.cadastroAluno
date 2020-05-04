@@ -173,6 +173,7 @@ public class frmNotasFaltas extends JFrame {
 		contentPane.add(panel_1);
 		
 		btnNovo = new JButton("");
+		btnNovo.setSelectedIcon(new ImageIcon("C:\\Users\\athos\\Google Drive\\Analise e desenvolvimento de sistemas\\3\u00BA Semestre\\Tecnicas de Programa\u00E7\u00E3o\\cadastro_alunos\\unicid.cadastroAluno\\CadastroAluno\\icons\\new.png"));
 		btnNovo.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnNovo.setToolTipText("Novo");
 		btnNovo.setMargin(new Insets(0, 0, 0, 0));
@@ -183,8 +184,9 @@ public class frmNotasFaltas extends JFrame {
 		panel_1.add(btnNovo);
 		
 		btnConsultar = new JButton("");
+		btnConsultar.setSelectedIcon(new ImageIcon("C:\\Users\\athos\\Google Drive\\Analise e desenvolvimento de sistemas\\3\u00BA Semestre\\Tecnicas de Programa\u00E7\u00E3o\\cadastro_alunos\\unicid.cadastroAluno\\CadastroAluno\\icons\\search.png"));
 		btnConsultar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnConsultar.setIcon(new ImageIcon("C:\\Users\\athos\\Google Drive\\Analise e desenvolvimento de sistemas\\3\u00BA Semestre\\Tecnicas de Programa\u00E7\u00E3o\\cadastro_alunos\\CadastroAluno\\icons\\search.png"));
+		btnConsultar.setIcon(new ImageIcon("C:\\Users\\athos\\Google Drive\\Analise e desenvolvimento de sistemas\\3\u00BA Semestre\\Tecnicas de Programa\u00E7\u00E3o\\cadastro_alunos\\unicid.cadastroAluno\\CadastroAluno\\icons\\search.png"));
 		btnConsultar.setToolTipText("Pesquisar");
 		btnConsultar.setMargin(new Insets(0, 0, 0, 0));
 		btnConsultar.setFont(new Font("Malgun Gothic", Font.PLAIN, 11));
@@ -195,8 +197,9 @@ public class frmNotasFaltas extends JFrame {
 		panel_1.add(btnConsultar);
 		
 		btnAlterar = new JButton("");
+		btnAlterar.setSelectedIcon(new ImageIcon("C:\\Users\\athos\\Google Drive\\Analise e desenvolvimento de sistemas\\3\u00BA Semestre\\Tecnicas de Programa\u00E7\u00E3o\\cadastro_alunos\\unicid.cadastroAluno\\CadastroAluno\\icons\\edit.png"));
 		btnAlterar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnAlterar.setIcon(new ImageIcon("C:\\Users\\athos\\Google Drive\\Analise e desenvolvimento de sistemas\\3\u00BA Semestre\\Tecnicas de Programa\u00E7\u00E3o\\cadastro_alunos\\CadastroAluno\\icons\\edit.png"));
+		btnAlterar.setIcon(new ImageIcon("C:\\Users\\athos\\Google Drive\\Analise e desenvolvimento de sistemas\\3\u00BA Semestre\\Tecnicas de Programa\u00E7\u00E3o\\cadastro_alunos\\unicid.cadastroAluno\\CadastroAluno\\icons\\edit.png"));
 		btnAlterar.setToolTipText("Alterar");
 		btnAlterar.setMargin(new Insets(0, 0, 0, 0));
 		btnAlterar.setFont(new Font("Malgun Gothic", Font.PLAIN, 11));
@@ -206,8 +209,9 @@ public class frmNotasFaltas extends JFrame {
 		panel_1.add(btnAlterar);
 		
 		btnExcluir = new JButton("");
+		btnExcluir.setSelectedIcon(new ImageIcon("C:\\Users\\athos\\Google Drive\\Analise e desenvolvimento de sistemas\\3\u00BA Semestre\\Tecnicas de Programa\u00E7\u00E3o\\cadastro_alunos\\unicid.cadastroAluno\\CadastroAluno\\icons\\delete.png"));
 		btnExcluir.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnExcluir.setIcon(new ImageIcon("C:\\Users\\athos\\Google Drive\\Analise e desenvolvimento de sistemas\\3\u00BA Semestre\\Tecnicas de Programa\u00E7\u00E3o\\cadastro_alunos\\CadastroAluno\\icons\\delete.png"));
+		btnExcluir.setIcon(new ImageIcon("C:\\Users\\athos\\Google Drive\\Analise e desenvolvimento de sistemas\\3\u00BA Semestre\\Tecnicas de Programa\u00E7\u00E3o\\cadastro_alunos\\unicid.cadastroAluno\\CadastroAluno\\icons\\delete.png"));
 		btnExcluir.setToolTipText("Excluir");
 		btnExcluir.setMargin(new Insets(0, 0, 0, 0));
 		btnExcluir.setFont(new Font("Malgun Gothic", Font.PLAIN, 11));
@@ -218,7 +222,7 @@ public class frmNotasFaltas extends JFrame {
 		
 		btnCancelar = new JButton("");
 		btnCancelar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnCancelar.setIcon(new ImageIcon("C:\\Users\\athos\\Google Drive\\Analise e desenvolvimento de sistemas\\3\u00BA Semestre\\Tecnicas de Programa\u00E7\u00E3o\\cadastro_alunos\\CadastroAluno\\icons\\cancel.png"));
+		btnCancelar.setIcon(new ImageIcon("C:\\Users\\athos\\Google Drive\\Analise e desenvolvimento de sistemas\\3\u00BA Semestre\\Tecnicas de Programa\u00E7\u00E3o\\cadastro_alunos\\unicid.cadastroAluno\\CadastroAluno\\icons\\cancel.png"));
 		btnCancelar.setToolTipText("Cancelar");
 		btnCancelar.setMargin(new Insets(0, 0, 0, 0));
 		btnCancelar.setFont(new Font("Malgun Gothic", Font.PLAIN, 11));

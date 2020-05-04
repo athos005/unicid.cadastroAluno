@@ -8,6 +8,7 @@ import br.com.unicid.cadastroaluno.view.frmAluno;
 
 public class Pessoa extends Endereco{
 	
+	private int codPessoa;
 	private String nome;
 	private String cpf;
 	private String genero;
@@ -15,13 +16,22 @@ public class Pessoa extends Endereco{
 	private String celular;
 	private String telefone;
 		
-	protected Pessoa() {
+	public Pessoa() {
 		
 	}
 	
 	protected Pessoa(String nome, String cpf){
 		this.nome = nome;
 		this.cpf = cpf.replaceAll("[\\D]", "");;
+	}
+	
+	
+	public int getCodPessoa() {
+		return this.codPessoa;
+	}
+	
+	public void setCodPessoa(int codPessoa) {
+		this.codPessoa = codPessoa;
 	}
 	
 	public String getNome() {
@@ -36,6 +46,10 @@ public class Pessoa extends Endereco{
 		return this.genero;
 	}
 	
+	public void setGenero(String genero) {
+		this.genero = genero;
+	}
+	
 	public void setGenero(JComboBox<?> genero) {
 		
 		switch (genero.getSelectedIndex()) {
@@ -48,6 +62,10 @@ public class Pessoa extends Endereco{
 	
 	public String getCpf() {
 		return this.cpf;
+	}
+	
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
 	}
 	
 	public String getEmail() {
@@ -73,8 +91,8 @@ public class Pessoa extends Endereco{
 	public void setTelefone(String telefone) {
 		this.telefone = telefone.replaceAll("[\\D]", "");
 	}
-	
-	public void salvarCadastro() throws Exception {
+
+	protected void salvarCadastro() throws Exception {
 		
 		EnderecoDAO DAOendereco = new EnderecoDAO();
 		DAOendereco.salvaEndereco(frmAluno.aluno);
@@ -82,5 +100,11 @@ public class Pessoa extends Endereco{
 		PessoaDAO DAOpessoa = new PessoaDAO();
 		DAOpessoa.salvarPessoa(frmAluno.aluno);
 		
+	}
+	
+	public void consultarCadastro() throws Exception{
+		PessoaDAO DAOpessoa = new PessoaDAO();
+		DAOpessoa.consultarPessoa();
+		System.out.println(codPessoa);
 	}
 }

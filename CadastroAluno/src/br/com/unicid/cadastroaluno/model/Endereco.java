@@ -2,6 +2,7 @@ package br.com.unicid.cadastroaluno.model;
 
 public class Endereco {
 
+	private int codEndereco;
 	private String cep;
 	private String endereco;
 	private String bairro;
@@ -10,6 +11,15 @@ public class Endereco {
 	private String uf;
 	private String cidade;
 
+	
+	public int getCodEndPessoa() {
+		return this.codEndereco;
+	}
+	
+	public void setCodEndPessoa(int codEndereco) {
+		this.codEndereco = codEndereco;
+	}
+	
 	public String getCep() {
 		return this.cep;
 	}

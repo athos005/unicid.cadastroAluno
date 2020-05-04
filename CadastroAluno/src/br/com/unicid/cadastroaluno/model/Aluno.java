@@ -13,11 +13,15 @@ public class Aluno extends Pessoa{
 	private String nomeCurso;
 	private String periodo;
 	private String campus;
-	private String nomeDisciplina;
-	private String notaDisciplina;
-	private int faltasDisciplina;
+	private String nomeDisciplinaAluno;
+	private String notaDisciplinaAluno;
+	private int faltasDisciplinaAluno;
 
 
+	public Aluno() {
+		
+	}
+	
 	public Aluno(String nomeAluno, String cpfAluno){
 		super(nomeAluno, cpfAluno);
 	}
@@ -50,6 +54,10 @@ public class Aluno extends Pessoa{
 		return this.periodo;
 	}
 
+	public void setPeriodo(String periodo) {
+		this.periodo = periodo;
+	}
+	
 	public void setPeriodo(JRadioButton matutino, JRadioButton vespertino, JRadioButton noturno) {
 
 		if(matutino.isSelected()) {
@@ -64,36 +72,41 @@ public class Aluno extends Pessoa{
 	}
 
 	public String getNomeDisciplina() {
-		return nomeDisciplina;
+		return nomeDisciplinaAluno;
 	}
 
 	public void setNomeDisciplina(String nomeDisciplina) {
-		this.nomeDisciplina = nomeDisciplina;
+		this.nomeDisciplinaAluno = nomeDisciplina;
 	}
 
 	public String getNotaDisciplina() {
-		return notaDisciplina;
+		return notaDisciplinaAluno;
 	}
 
 	public void setNotaDisciplina(String notaDisciplina) {
-		this.notaDisciplina = notaDisciplina;
+		this.notaDisciplinaAluno = notaDisciplina;
 	}
 
 	public int getFaltasDisciplina() {
-		return faltasDisciplina;
+		return faltasDisciplinaAluno;
 	}
 
 	public void setFaltasDisciplina(int faltasDisciplina) {
-		this.faltasDisciplina = faltasDisciplina;
+		this.faltasDisciplinaAluno = faltasDisciplina;
 	}
-
+	
 	public void salvarAluno() throws Exception {
 		
 		salvarCadastro();
-		
 		AlunoDAO DAOaluno = new AlunoDAO();
 		DAOaluno.salvarAluno(frmAluno.aluno);
 
+	}
+	
+	public void ConsultarAluno(int rgm) throws Exception{
+		AlunoDAO DAOaluno = new AlunoDAO();
+		DAOaluno.consultarAluno(rgm);
+		consultarCadastro();
 	}
 
 }
