@@ -11,14 +11,15 @@ import br.com.unicid.cadastroaluno.connection.ConnectionDB;
 import br.com.unicid.cadastroaluno.model.Aluno;
 import br.com.unicid.cadastroaluno.model.Endereco;
 import br.com.unicid.cadastroaluno.model.Pessoa;
+import br.com.unicid.cadastroaluno.view.frmAluno;
 
 public class PessoaDAO {
 
+	protected Pessoa pessoa;
 	private Connection conn; //Conecta com o banco
 	private PreparedStatement ps; //executa a query
 	private ResultSet rs;
 	protected static int codPessoa;
-	protected Pessoa pessoa;
 
 	public PessoaDAO() throws Exception{
 		try {
@@ -56,27 +57,20 @@ public class PessoaDAO {
 		}
 	}
 
-	public Pessoa consultarPessoa() throws Exception {
-		System.out.println();
+	public void consultarPessoa(int codPessoa) throws Exception {
 		try {
 			ps = conn.prepareStatement("SELECT * FROM pessoa WHERE cod_pessoa=?");
 			ps.setInt(1, codPessoa);
-			rs = ps.executeQuery();
+			rs = ps.executeQuery(); 
 			if(rs.next()) {
-				pessoa = new Pessoa();
+				pessoa = frmAluno.aluno;
 				pessoa.setNome(rs.getString("nome"));
-				pessoa.setCpf(rs.getString("cpf"));
-				pessoa.setEmail(rs.getString("email"));
-				pessoa.setCelular(rs.getString("celular"));
-				pessoa.setCpf(rs.getString("telefone"));
-				pessoa.setCodEndPessoa(rs.getInt("cod_endereco"));
 			}
-		} 
-		catch (Exception e) {
-			throw new Exception("Erro ao Consultar " + e.getMessage());
+
 		}
-		
-		return pessoa;
+		catch (Exception e) {
+			throw new Exception("Erro ao consultar" + e.getMessage());
+		}
 	}
 
 	public void alterarPessoa(Aluno aluno) throws Exception{

@@ -8,31 +8,33 @@ import br.com.unicid.cadastroaluno.view.frmAluno;
 
 public class Pessoa extends Endereco{
 	
-	private int codPessoa;
+	/*ATRIBUTOS*/
+	/*------------------------------------*/
+	
 	private String nome;
 	private String cpf;
+	private String dataNascimento;
 	private String genero;
 	private String email;
 	private String celular;
 	private String telefone;
-		
+	
+	
+	/*CONSTRUTORES*/
+	/*------------------------------------*/
+	
 	public Pessoa() {
 		
 	}
 	
 	protected Pessoa(String nome, String cpf){
 		this.nome = nome;
-		this.cpf = cpf.replaceAll("[\\D]", "");;
+		this.cpf = cpf.replaceAll("[\\D]", "");
 	}
 	
 	
-	public int getCodPessoa() {
-		return this.codPessoa;
-	}
-	
-	public void setCodPessoa(int codPessoa) {
-		this.codPessoa = codPessoa;
-	}
+	/*GETTERS & SETTERS*/
+	/*------------------------------------*/
 	
 	public String getNome() {
 		return this.nome;
@@ -41,7 +43,23 @@ public class Pessoa extends Endereco{
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-		
+	
+	public String getCpf() {
+		return this.cpf;
+	}
+	
+	public void setCpf(String cpf) {
+		this.cpf = cpf.replaceAll("[\\D]", "");
+	}
+	
+	public String getDataNascimento() {
+		return this.dataNascimento.replaceAll("[\\D]", "");
+	}
+	
+	public void setDataNascimento(String dataNascimento) {
+		this.dataNascimento = dataNascimento;
+	}
+	
 	public String getGereno() {
 		return this.genero;
 	}
@@ -58,14 +76,6 @@ public class Pessoa extends Endereco{
 		case 2: this.genero = "F";
 		break;
 		}
-	}
-	
-	public String getCpf() {
-		return this.cpf;
-	}
-	
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
 	}
 	
 	public String getEmail() {
@@ -92,6 +102,10 @@ public class Pessoa extends Endereco{
 		this.telefone = telefone.replaceAll("[\\D]", "");
 	}
 
+	
+	/*MÉTODOS DA CLASSE*/
+	/*------------------------------------*/
+	
 	protected void salvarCadastro() throws Exception {
 		
 		EnderecoDAO DAOendereco = new EnderecoDAO();
@@ -102,9 +116,9 @@ public class Pessoa extends Endereco{
 		
 	}
 	
-	public void consultarCadastro() throws Exception{
+	protected void connsultarCadastro() throws Exception {
+		
 		PessoaDAO DAOpessoa = new PessoaDAO();
-		DAOpessoa.consultarPessoa();
-		System.out.println(codPessoa);
+		DAOpessoa.consultarPessoa(frmAluno.aluno.getCodPessoa());
 	}
 }

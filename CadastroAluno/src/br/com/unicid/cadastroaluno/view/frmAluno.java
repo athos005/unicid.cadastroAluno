@@ -94,6 +94,8 @@ public class frmAluno extends JFrame {
 	public static Pessoa pessoa;
 	private AlunoDAO dao;
 	protected boolean habilitarCampos;
+	public JLabel lblCelular_1;
+	public JFormattedTextField txtDataNascimento;
 
 
 	/**
@@ -180,15 +182,26 @@ public class frmAluno extends JFrame {
 		txtCpf.setFormatterFactory(new DefaultFormatterFactory(new MaskFormatter("###.###.###-##")));
 
 		lblSexo = new JLabel("G\u00CANERO");
-		lblSexo.setBounds(0, 201, 48, 17);
+		lblSexo.setBounds(140, 201, 48, 17);
 		panel.add(lblSexo);
 		lblSexo.setFont(new Font("Malgun Gothic", Font.BOLD, 12));
 
 		cmbGenero = new JComboBox();
 		cmbGenero.setModel(new DefaultComboBoxModel(new String[] {"- Selecione", "Masculino", "Feminino"}));
 		cmbGenero.setEnabled(false);
-		cmbGenero.setBounds(0, 229, 165, 30);
+		cmbGenero.setBounds(140, 229, 160, 30);
 		panel.add(cmbGenero);
+		
+		lblCelular_1 = new JLabel("NASCIMENTO");
+		lblCelular_1.setFont(new Font("Malgun Gothic", Font.BOLD, 12));
+		lblCelular_1.setBounds(0, 201, 81, 17);
+		panel.add(lblCelular_1);
+		
+		txtDataNascimento = new JFormattedTextField();
+		txtDataNascimento.setEnabled(false);
+		txtDataNascimento.setBounds(0, 229, 130, 30);
+		panel.add(txtDataNascimento);
+		txtDataNascimento.setFormatterFactory(new DefaultFormatterFactory(new MaskFormatter("##/##/####")));
 
 		panel_1 = new JPanel();
 		panel_1.setBackground(Color.WHITE);
@@ -398,6 +411,7 @@ public class frmAluno extends JFrame {
 					try {
 
 						aluno = new Aluno(txtNome.getText(), txtCpf.getText());
+						aluno.setDataNascimento(txtDataNascimento.getText());
 						aluno.setGenero(cmbGenero);
 						aluno.setEmail(txtEmail.getText());
 						aluno.setCelular(txtCelular.getText());
@@ -426,7 +440,7 @@ public class frmAluno extends JFrame {
 				else {
 					f.limpaComponentes(txtRgm, txtNome, txtCpf, txtEmail, txtCelular, txtTelefone); //Limpa os campos do panel Alunos
 					f.limpaComponentes(txtCep, txtEndereco, txtNumero, txtComplemento, txtBairro, txtCidade); //Limpa os campos do panel Endereço
-					f.habilitaComponentes(txtRgm, txtNome, txtCpf, txtEmail, txtCelular, txtTelefone); //Habilita os campos do panel Alunos
+					f.habilitaComponentes(txtRgm, txtNome, txtCpf, txtDataNascimento, txtEmail, txtCelular, txtTelefone); //Habilita os campos do panel Alunos
 					f.habilitaComponentes(txtCep, txtEndereco, txtNumero, txtComplemento, txtBairro, txtCidade); //Habilita os campos do panel Endereço
 					f.habilitaComponentes(cmbCurso, cmbEstado, cmbUnidade);
 					f.habilitaComponentes(rdbMatutino, rdbNoturno, rdbVespertino);
@@ -453,15 +467,14 @@ public class frmAluno extends JFrame {
 				if(habilitarCampos == true) {
 					
 					try {
-						
-						/*dao = new AlunoDAO();
-						aluno = dao.consultarAluno(Integer.parseInt(txtRgm.getText()));*/
+												
 						aluno = new Aluno();
-						aluno.ConsultarAluno(Integer.parseInt(txtRgm.getText()));
+						aluno.setRgm(Integer.parseInt(txtRgm.getText()));
+						aluno.consultarAluno(aluno.getRgm());
 						
-						System.out.println(aluno.getCodPessoa());
+						System.out.println("Funcionou " + aluno.getNome());
 						
-						
+						txtNome.setText(aluno.getNome());
 						
 						String periodo = aluno.getPeriodo();
 											

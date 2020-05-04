@@ -9,6 +9,9 @@ import br.com.unicid.cadastroaluno.view.frmAluno;
 
 public class Aluno extends Pessoa{
 
+	/*ATRIBUTOS*/
+	/*------------------------------------*/
+
 	private int rgm;
 	private String nomeCurso;
 	private String periodo;
@@ -16,15 +19,21 @@ public class Aluno extends Pessoa{
 	private String nomeDisciplinaAluno;
 	private String notaDisciplinaAluno;
 	private int faltasDisciplinaAluno;
+	private int codPessoa;
 
+	/*CONSTRUTORES*/
+	/*------------------------------------*/
 
 	public Aluno() {
-		
+
 	}
-	
+
 	public Aluno(String nomeAluno, String cpfAluno){
 		super(nomeAluno, cpfAluno);
 	}
+
+	/*GETTERS & SETTERS*/
+	/*------------------------------------*/
 
 	public int getRgm() {
 		return rgm;
@@ -57,7 +66,7 @@ public class Aluno extends Pessoa{
 	public void setPeriodo(String periodo) {
 		this.periodo = periodo;
 	}
-	
+
 	public void setPeriodo(JRadioButton matutino, JRadioButton vespertino, JRadioButton noturno) {
 
 		if(matutino.isSelected()) {
@@ -94,19 +103,32 @@ public class Aluno extends Pessoa{
 	public void setFaltasDisciplina(int faltasDisciplina) {
 		this.faltasDisciplinaAluno = faltasDisciplina;
 	}
-	
+
+	public int getCodPessoa() {
+		return this.codPessoa;
+	}
+
+	public void setCodPessoa(int codPessoa) {
+		this.codPessoa = codPessoa;
+	}
+
+
+	/*MÉTODOS DA CLASSE*/
+	/*------------------------------------*/
+
 	public void salvarAluno() throws Exception {
-		
+
 		salvarCadastro();
 		AlunoDAO DAOaluno = new AlunoDAO();
 		DAOaluno.salvarAluno(frmAluno.aluno);
 
 	}
-	
-	public void ConsultarAluno(int rgm) throws Exception{
-		AlunoDAO DAOaluno = new AlunoDAO();
-		DAOaluno.consultarAluno(rgm);
-		consultarCadastro();
-	}
 
+	public void consultarAluno(int rgmAluno) throws Exception{
+		
+		AlunoDAO DAOaluno = new AlunoDAO();
+		DAOaluno.consultarAluno(rgmAluno);
+		connsultarCadastro();
+	
+	}
 }

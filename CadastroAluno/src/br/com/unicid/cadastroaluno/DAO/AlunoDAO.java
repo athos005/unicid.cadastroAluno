@@ -13,6 +13,7 @@ import com.mysql.cj.x.protobuf.MysqlxConnection.Close;
 
 import br.com.unicid.cadastroaluno.connection.ConnectionDB;
 import br.com.unicid.cadastroaluno.model.Aluno;
+import br.com.unicid.cadastroaluno.view.frmAluno;
 import jdk.nashorn.internal.ir.SetSplitState;
 
 public class AlunoDAO{
@@ -97,18 +98,22 @@ public class AlunoDAO{
 			ps.setInt(1, rgm);
 			rs = ps.executeQuery();
 			if(rs.next()) {
-				aluno = new Aluno();
-				aluno.setCodPessoa(rs.getInt("cod_pessoa"));
+				aluno = frmAluno.aluno;
 				aluno.setPeriodo(rs.getString("periodo"));
-			}
-		} 
+				aluno.setCodPessoa(rs.getInt("cod_pessoa"));
+			}  
+		}
 		catch (Exception e) {
-			throw new Exception("Erro ao Consultar" + e.getMessage());
+			throw new Exception("Erro ao consultar" + e.getMessage());
 		}
 		
 		return aluno;
 	}
 
+	public Aluno pegarDadosAluno() {
+		return this.aluno;
+	}
+	
 	public List listarTodos() throws Exception{
 
 		List<Aluno> lista = new ArrayList<Aluno>();
