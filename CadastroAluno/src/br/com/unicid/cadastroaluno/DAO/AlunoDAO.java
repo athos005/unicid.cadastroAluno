@@ -32,6 +32,8 @@ public class AlunoDAO{
 		}
 	}
 
+	/*SALVAR ALUNO*/
+	
 	public void salvarAluno(Aluno aluno) throws Exception{
 
 		try {
@@ -41,10 +43,8 @@ public class AlunoDAO{
 			ps = conn.prepareStatement(sql);
 			ps.setInt(1, aluno.getRgm());
 			ps.setString(2, aluno.getPeriodo());
-			ps.setInt(3, PessoaDAO.codPessoa);
+			ps.setInt(3, aluno.getCodPessoa());
 			ps.executeUpdate();
-
-			JOptionPane.showMessageDialog(null, "Salvo com Sucesso");
 
 			ps.close();
 		}
@@ -52,46 +52,9 @@ public class AlunoDAO{
 			throw new Exception("Erro ao Salvar" + e.getMessage());
 		}
 	}
-
-	/*public void alterarAluno(Aluno aluno) throws Exception{
-
-		try {
-
-			String sql = "UPDATE aluno SET periodo=?" + "WHERE rgm";
-
-			ps = conn.prepareStatement(sql);
-			ps.setString(1, aluno.getPeriodo());
-			ps.setInt(2, aluno.getRgm());
-			//ps.setInt(3, PessoaDAO.codPessoa);
-			ps.executeUpdate();
-
-			JOptionPane.showMessageDialog(null, "Salvo com Sucesso");
-
-			ps.close();
-		}
-		catch(Exception e) {
-			throw new Exception("Erro ao Alterar" + e.getMessage());
-		}
-	}*/
-
-	public void excluirAluno(int rgm) throws Exception{
-		try {
-
-			String sql = "DELETE FROM aluno" + "WHERE RGM=?";
-
-			ps = conn.prepareStatement(sql);
-			ps.setInt(1, rgm);
-			ps.executeUpdate();
-
-			JOptionPane.showMessageDialog(null, "Salvo com Sucesso");
-
-			ps.close();
-		}
-		catch(Exception e) {
-			throw new Exception("Erro ao Excluir" + e.getMessage());
-		}
-	}
-
+	
+	/*CONSULTAR ALUNO*/
+	
 	public Aluno consultarAluno(int rgm) throws Exception {
 		try {
 			ps = conn.prepareStatement("SELECT * FROM aluno WHERE rgm=?");
@@ -111,6 +74,46 @@ public class AlunoDAO{
 		return aluno;
 	}
 
+	/*ALTERAR ALUNO*/
+	
+	public void alterarAluno(Aluno aluno) throws Exception{
+
+		try {
+
+			String sql = "UPDATE aluno SET periodo=? WHERE rgm=?";
+
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, aluno.getPeriodo());
+			ps.setInt(2, aluno.getRgm());
+			ps.executeUpdate();
+			
+			ps.close();
+		}
+		catch(Exception e) {
+			throw new Exception("Erro ao Alterar" + e.getMessage());
+		}
+	}
+	
+	/*EXLUIR ALUNO*/
+	
+	public void excluirAluno(int rgm) throws Exception{
+		try {
+
+			String sql = "DELETE FROM aluno WHERE RGM=?";
+
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, rgm);
+			
+			ps.executeUpdate();
+			ps.close();
+		}
+		catch(Exception e) {
+			throw new Exception("Erro ao Excluir" + e.getMessage());
+		}
+	}
+
+	/*LISTAR ALUNOS*/
+	
 	public Aluno pegarDadosAluno() {
 		return this.aluno;
 	}

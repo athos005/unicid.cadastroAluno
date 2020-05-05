@@ -11,6 +11,7 @@ public class Pessoa extends Endereco{
 	/*ATRIBUTOS*/
 	/*------------------------------------*/
 	
+	private int codPessoa;
 	private String nome;
 	private String cpf;
 	private String dataNascimento;
@@ -18,6 +19,8 @@ public class Pessoa extends Endereco{
 	private String email;
 	private String celular;
 	private String telefone;
+	private PessoaDAO DAOpessoa;
+	private EnderecoDAO DAOendereco;
 	
 	
 	/*CONSTRUTORES*/
@@ -36,6 +39,14 @@ public class Pessoa extends Endereco{
 	/*GETTERS & SETTERS*/
 	/*------------------------------------*/
 	
+	public int getCodPessoa() {
+		return this.codPessoa;
+	}
+
+	public void setCodPessoa(int codPessoa) {
+		this.codPessoa = codPessoa;
+	}
+	
 	public String getNome() {
 		return this.nome;
 	}
@@ -53,11 +64,11 @@ public class Pessoa extends Endereco{
 	}
 	
 	public String getDataNascimento() {
-		return this.dataNascimento.replaceAll("[\\D]", "");
+		return this.dataNascimento;
 	}
 	
 	public void setDataNascimento(String dataNascimento) {
-		this.dataNascimento = dataNascimento;
+		this.dataNascimento = dataNascimento.replaceAll("[\\D]", "");
 	}
 	
 	public String getGereno() {
@@ -105,7 +116,7 @@ public class Pessoa extends Endereco{
 		return this.celular;
 	}
 	
-	public void setCelular(String celular) {
+	public void setCelular(String celular) { 
 		this.celular = celular.replaceAll("[\\D]", "");
 	}
 	
@@ -123,20 +134,39 @@ public class Pessoa extends Endereco{
 	
 	protected void salvarCadastro() throws Exception {
 		
-		EnderecoDAO DAOendereco = new EnderecoDAO();
-		DAOendereco.salvaEndereco(frmAluno.aluno);
+		DAOendereco = new EnderecoDAO();
+		DAOendereco.salvarEndereco(frmAluno.aluno);
 		
-		PessoaDAO DAOpessoa = new PessoaDAO();
+		DAOpessoa = new PessoaDAO();
 		DAOpessoa.salvarPessoa(frmAluno.aluno);
-		
 	}
 	
 	protected void connsultarCadastro() throws Exception {
 		
-		PessoaDAO DAOpessoa = new PessoaDAO();
+		DAOpessoa = new PessoaDAO();
 		DAOpessoa.consultarPessoa(frmAluno.aluno.getCodPessoa());
 		
-		EnderecoDAO DAOendereco = new EnderecoDAO();
+		DAOendereco = new EnderecoDAO();
 		DAOendereco.consultarEndereco(frmAluno.aluno.getCodEndereco());
+	}
+	
+	protected void alterarCadastro() throws Exception{
+		
+		DAOendereco = new EnderecoDAO();
+		DAOendereco.alterarEndereco(frmAluno.aluno);
+		
+		DAOpessoa = new PessoaDAO();
+		DAOpessoa.alterarPessoa(frmAluno.aluno);
+		
+	}
+	
+	protected void excluirCadastrato() throws Exception{
+			
+		DAOpessoa = new PessoaDAO();
+		DAOpessoa.excluirCadastro(frmAluno.aluno.getCodPessoa());
+		
+		DAOendereco = new EnderecoDAO();
+		DAOendereco.excluirEndereco(frmAluno.aluno.getCodEndereco());
+		
 	}
 }

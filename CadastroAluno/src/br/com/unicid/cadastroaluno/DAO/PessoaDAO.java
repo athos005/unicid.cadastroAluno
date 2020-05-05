@@ -19,7 +19,6 @@ public class PessoaDAO {
 	private Connection conn; //Conecta com o banco
 	private PreparedStatement ps; //executa a query
 	private ResultSet rs;
-	protected static int codPessoa;
 
 	public PessoaDAO() throws Exception{
 		try {
@@ -30,10 +29,13 @@ public class PessoaDAO {
 		}
 	}
 
+	/*SALVAR PESSOA*/
+	
 	public void salvarPessoa(Pessoa pessoa) throws Exception{				
 
 		try {
 			String sql = "INSERT INTO pessoa(nome, cpf, nascimento, genero, email, celular, telefone, cod_Endereco)" + "VALUES(?,?,?,?,?,?,?,?)";
+			
 			ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			ps.setString(1, pessoa.getNome());
 			ps.setString(2, pessoa.getCpf());
@@ -42,14 +44,12 @@ public class PessoaDAO {
 			ps.setString(5, pessoa.getEmail());
 			ps.setString(6, pessoa.getCelular());
 			ps.setString(7, pessoa.getTelefone());
-			ps.setInt(8, EnderecoDAO.codEndereco);
+			ps.setInt(8, pessoa.getCodEndereco());
 			ps.executeUpdate();
 
 			rs = ps.getGeneratedKeys();  
 			rs.next();
-			codPessoa = rs.getInt(1);
-
-			JOptionPane.showMessageDialog(null, "Salvo com Sucesso");
+			pessoa.setCodPessoa(rs.getInt(1)); 
 
 			ps.close();
 		}
@@ -58,6 +58,8 @@ public class PessoaDAO {
 		}
 	}
 
+	/*CONSULTAR PESSOA*/
+	
 	public void consultarPessoa(int codPessoa) throws Exception {
 		try {
 			ps = conn.prepareStatement("SELECT * FROM pessoa WHERE cod_pessoa=?");
@@ -81,24 +83,50 @@ public class PessoaDAO {
 			throw new Exception("Erro ao consultar" + e.getMessage());
 		}
 	}
-
-	public void alterarPessoa(Aluno aluno) throws Exception{
+	
+	/*ALTERAR PESSOA*/
+	
+	public void alterarPessoa(Pessoa pessoa) throws Exception{				
 
 		try {
-
-			String sql = "UPDATE pessoa SET nome=?" + "WHERE codPessoa=?";
-
+			String sql = "UPDATE pessoa SET nome=?, cpf=?, nascimento=?, genero=?, email=?, celular=?, telefone=? WHERE cod_pessoa=?";
+			
 			ps = conn.prepareStatement(sql);
-			ps.setString(1, aluno.getNome());
-			ps.setInt(2, aluno.getRgm());
+			ps.setString(1, pessoa.getNome());
+			ps.setString(2, pessoa.getCpf());
+			ps.setString(3, pessoa.getDataNascimento());
+			ps.setString(4, pessoa.getGereno());
+			ps.setString(5, pessoa.getEmail());
+			ps.setString(6, pessoa.getCelular());
+			ps.setString(7, pessoa.getTelefone());
+			ps.setInt(8, pessoa.getCodPessoa());
+			
 			ps.executeUpdate();
+			ps.close();
+			
+			
+		}
+		catch(Exception e) {
+			throw new Exception("Erro ao Salvar" + e.getMessage());
+		}
+	}
+	
+	/*EXCLUIR CADASTRO*/
+	
+	public void excluirCadastro(int codPessoa) throws Exception{
+		
+		try {
 
-			JOptionPane.showMessageDialog(null, "Salvo com Sucesso");
-
+			String sql = "DELETE FROM pessoa WHERE cod_pessoa=?";
+			
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, codPessoa);
+			
+			ps.executeUpdate();
 			ps.close();
 		}
 		catch(Exception e) {
-			throw new Exception("Erro ao Alterar" + e.getMessage());
+			throw new Exception("Erro ao Excluir" + e.getMessage());
 		}
 	}
 }

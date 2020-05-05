@@ -19,7 +19,6 @@ public class EnderecoDAO{
 	private Connection conn; //Conecta com o banco
 	private PreparedStatement ps; //executa a query
 	private ResultSet rs;
-	protected static int codEndereco;
 
 	public EnderecoDAO() throws Exception{
 		try {
@@ -30,7 +29,9 @@ public class EnderecoDAO{
 		}
 	}
 
-	public void salvaEndereco(Endereco endereco) throws Exception {
+	/*SALVA ENDERECO*/
+
+	public void salvarEndereco(Endereco endereco) throws Exception {
 
 		try {
 
@@ -48,9 +49,7 @@ public class EnderecoDAO{
 
 			rs = ps.getGeneratedKeys();  
 			rs.next();
-			codEndereco = rs.getInt(1);
-
-			JOptionPane.showMessageDialog(null, "Salvo com Sucesso");
+			endereco.setCodEndereco(rs.getInt(1));
 
 			ps.close();
 		}
@@ -58,6 +57,8 @@ public class EnderecoDAO{
 			throw new Exception("Erro ao Salvar" + e.getMessage());
 		}
 	}
+
+	/*CONSULTA ENDEREÇO*/
 
 	public void consultarEndereco(int codEndereco) throws Exception {
 
@@ -80,6 +81,51 @@ public class EnderecoDAO{
 		}
 		catch (Exception e) {
 			throw new Exception("Erro ao consultar" + e.getMessage());
+		}
+	}
+
+	/*ALTERAR ENDEREÇO*/
+
+	public void alterarEndereco(Endereco endereco) throws Exception {
+
+		try {
+
+			String sql = "UPDATE endereco SET cep=?, endereco=?, bairro=?, complemento=?, numero=?, uf=?, cidade=? WHERE cod_endereco=?";
+
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, endereco.getCep());
+			ps.setString(2, endereco.getEndereco());
+			ps.setString(3, endereco.getBairro());
+			ps.setString(4, endereco.getComplemento());
+			ps.setString(5, endereco.getNumero());
+			ps.setString(6, endereco.getUf());
+			ps.setString(7, endereco.getCidade());
+			ps.setInt(8, endereco.getCodEndereco());
+
+			ps.executeUpdate();
+			ps.close();
+		}
+		catch(Exception e) {
+			throw new Exception("Erro ao Alterar" + e.getMessage());
+		}
+	}
+
+	/*EXCLUIR ENDEREÇO*/
+
+	public void excluirEndereco(int codPessoa) throws Exception{
+
+		try {
+
+			String sql = "DELETE FROM endereco WHERE cod_endereco=?";
+
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, codPessoa);
+
+			ps.executeUpdate();
+			ps.close();
+		}
+		catch(Exception e) {
+			throw new Exception("Erro ao Excluir" + e.getMessage());
 		}
 	}
 }

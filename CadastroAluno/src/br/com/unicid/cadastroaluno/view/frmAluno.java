@@ -33,6 +33,12 @@ import br.com.unicid.cadastroaluno.model.Pessoa;
 
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.border.LineBorder;
+import javax.swing.border.MatteBorder;
+import javax.swing.border.TitledBorder;
+import javax.swing.UIManager;
+import java.awt.SystemColor;
+import javax.swing.DebugGraphics;
 
 public class frmAluno extends JFrame {
 
@@ -92,7 +98,7 @@ public class frmAluno extends JFrame {
 
 	public static Aluno aluno;
 	public static Pessoa pessoa;
-	private AlunoDAO dao;
+	private FerramentasFormulario f;
 	protected boolean habilitarCampos;
 	public JLabel lblCelular_1;
 	public JFormattedTextField txtDataNascimento;
@@ -138,17 +144,18 @@ public class frmAluno extends JFrame {
 
 		pnlDadosPessoais = new JPanel();
 		pnlDadosPessoais.setBorder(null);
-		pnlDadosPessoais.setBackground(Color.WHITE);
+		pnlDadosPessoais.setBackground(new Color(240, 240, 240));
 		tabbedPane.addTab("DADOS PESSOAIS", null, pnlDadosPessoais, null);
 		pnlDadosPessoais.setLayout(null);
 
 		panel = new JPanel();
-		panel.setBackground(Color.WHITE);
+		panel.setBackground(new Color(240, 240, 240));
 		panel.setBounds(22, 11, 300, 259);
 		pnlDadosPessoais.add(panel);
 		panel.setLayout(null);
 
 		txtRgm = new JTextField();
+		txtRgm.setBackground(Color.WHITE);
 		txtRgm.setEnabled(false);
 		txtRgm.setBounds(0, 25, 150, 30);
 		panel.add(txtRgm);
@@ -160,6 +167,7 @@ public class frmAluno extends JFrame {
 		lblNewLabel.setFont(new Font("Malgun Gothic", Font.BOLD, 12));
 
 		txtNome = new JTextField();
+		txtNome.setBackground(Color.WHITE);
 		txtNome.setEnabled(false);
 		txtNome.setBounds(0, 160, 300, 30);
 		panel.add(txtNome);
@@ -176,6 +184,7 @@ public class frmAluno extends JFrame {
 		lblCpf.setFont(new Font("Malgun Gothic", Font.BOLD, 12));
 
 		txtCpf = new JFormattedTextField();
+		txtCpf.setBackground(Color.WHITE);
 		txtCpf.setEnabled(false);
 		txtCpf.setBounds(0, 94, 150, 30);
 		panel.add(txtCpf);
@@ -187,6 +196,8 @@ public class frmAluno extends JFrame {
 		lblSexo.setFont(new Font("Malgun Gothic", Font.BOLD, 12));
 
 		cmbGenero = new JComboBox();
+		cmbGenero.setBackground(Color.WHITE);
+		cmbGenero.setBorder(null);
 		cmbGenero.setModel(new DefaultComboBoxModel(new String[] {"- Selecione", "Masculino", "Feminino"}));
 		cmbGenero.setEnabled(false);
 		cmbGenero.setBounds(140, 229, 160, 30);
@@ -198,18 +209,20 @@ public class frmAluno extends JFrame {
 		panel.add(lblCelular_1);
 
 		txtDataNascimento = new JFormattedTextField();
+		txtDataNascimento.setBackground(Color.WHITE);
 		txtDataNascimento.setEnabled(false);
 		txtDataNascimento.setBounds(0, 229, 130, 30);
 		panel.add(txtDataNascimento);
 		txtDataNascimento.setFormatterFactory(new DefaultFormatterFactory(new MaskFormatter("##/##/####")));
 
 		panel_1 = new JPanel();
-		panel_1.setBackground(Color.WHITE);
+		panel_1.setBackground(new Color(240, 240, 240));
 		panel_1.setBounds(22, 281, 300, 124);
 		pnlDadosPessoais.add(panel_1);
 		panel_1.setLayout(null);
 
 		txtEmail = new JTextField();
+		txtEmail.setBackground(Color.WHITE);
 		txtEmail.setEnabled(false);
 		txtEmail.setBounds(0, 25, 300, 30);
 		panel_1.add(txtEmail);
@@ -221,6 +234,7 @@ public class frmAluno extends JFrame {
 		lblEmail.setFont(new Font("Malgun Gothic", Font.BOLD, 12));
 
 		txtCelular = new JFormattedTextField();
+		txtCelular.setBackground(Color.WHITE);
 		txtCelular.setEnabled(false);
 		txtCelular.setBounds(0, 94, 130, 30);
 		panel_1.add(txtCelular);
@@ -237,6 +251,7 @@ public class frmAluno extends JFrame {
 		lblTelefone.setFont(new Font("Malgun Gothic", Font.BOLD, 12));
 
 		txtTelefone = new JFormattedTextField();
+		txtTelefone.setBackground(Color.WHITE);
 		txtTelefone.setEnabled(false);
 		txtTelefone.setBounds(140, 94, 130, 30);
 		panel_1.add(txtTelefone);
@@ -406,42 +421,33 @@ public class frmAluno extends JFrame {
 		btnNovo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
-				FerramentasFormulario f = new FerramentasFormulario();
-
 				if(habilitarCampos == true) {
 
-					try {
+					aluno = new Aluno(); //CRIA UM NOVO OBEJTO DO TIPO ALUNO
+					aluno.setNome(txtNome.getText()); 
+					aluno.setCpf(txtCpf.getText());
+					aluno.setDataNascimento(txtDataNascimento.getText());
+					aluno.setGenero(cmbGenero);
+					aluno.setEmail(txtEmail.getText());
+					aluno.setCelular(txtCelular.getText());
+					aluno.setTelefone(txtTelefone.getText());
+					aluno.setRgm(Integer.parseInt(txtRgm.getText()));
+					aluno.setPeriodo(rdbMatutino, rdbNoturno, rdbNoturno);
+					aluno.setCep(txtCep.getText());
+					aluno.setEndereco(txtEndereco.getText());
+					aluno.setNumero(txtNumero.getText());
+					aluno.setComplemento(txtComplemento.getText());
+					aluno.setBairro(txtBairro.getText());
+					aluno.setCidade(txtCidade.getText());
+					aluno.setUf(cmbUF.getSelectedItem().toString());
 
-						aluno = new Aluno();
-						aluno.setNome(txtNome.getText()); 
-						aluno.setCpf(txtCpf.getText());
-						aluno.setDataNascimento(txtDataNascimento.getText());
-						aluno.setGenero(cmbGenero);
-						aluno.setEmail(txtEmail.getText());
-						aluno.setCelular(txtCelular.getText());
-						aluno.setTelefone(txtTelefone.getText());
-						aluno.setRgm(Integer.parseInt(txtRgm.getText()));
-						aluno.setPeriodo(rdbMatutino, rdbNoturno, rdbNoturno);
-						aluno.setCep(txtCep.getText());
-						aluno.setEndereco(txtEndereco.getText());
-						aluno.setNumero(txtNumero.getText());
-						aluno.setComplemento(txtComplemento.getText());
-						aluno.setBairro(txtBairro.getText());
-						aluno.setCidade(txtCidade.getText());
-						aluno.setUf(cmbUF.getSelectedItem().toString());
+					aluno.salvarAluno(); //MÉTODO DA CLASSE ALUNO
 
-						aluno.salvarAluno();
-
-						habilitarCampos = false;
-					} 
-
-					catch(Exception e){
-						System.out.println("Erro ao salvar");
-						e.printStackTrace();
-					}
-
-				}
-				else {
+					habilitarCampos = false;
+				} 
+				else if(habilitarCampos == false)
+				{
+					f = new FerramentasFormulario();
 					f.limpaComponentes(txtRgm, txtNome, txtCpf, txtEmail, txtEmail, txtCelular, txtTelefone); //Limpa os campos do panel Alunos
 					f.limpaComponentes(txtCep, txtEndereco, txtNumero, txtComplemento, txtBairro, txtCidade); //Limpa os campos do panel Endereço
 					f.habilitaComponentes(txtRgm, txtNome, txtCpf, txtDataNascimento, txtEmail, txtCelular, txtTelefone); //Habilita os campos do panel Alunos
@@ -468,39 +474,31 @@ public class frmAluno extends JFrame {
 		btnConsultar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				FerramentasFormulario f = new FerramentasFormulario();
-
 				if(habilitarCampos == true) {
 
-					try {
+					aluno = new Aluno();
+					aluno.setRgm(Integer.parseInt(txtRgm.getText()));
+					aluno.consultarAluno(aluno.getRgm());
 
-						aluno = new Aluno();
-						aluno.setRgm(Integer.parseInt(txtRgm.getText()));
-						aluno.consultarAluno(aluno.getRgm());
-
-						txtCpf.setText(aluno.getCpf());
-						txtNome.setText(aluno.getNome());
-						txtDataNascimento.setText(aluno.getDataNascimento());
-						cmbGenero.setSelectedIndex(aluno.getGenero(cmbGenero));
-						txtEmail.setText(aluno.getEmail());
-						txtCelular.setText(aluno.getCelular());
-						txtTelefone.setText(aluno.getTelefone());
-						txtCep.setText(aluno.getCep());
-						txtEndereco.setText(aluno.getEndereco());
-						txtNumero.setText(aluno.getNumero());
-						txtComplemento.setText(aluno.getComplemento());
-						txtBairro.setText(aluno.getBairro());
-						txtCidade.setText(aluno.getCidade());
-						//cmbUF.setSelectedIndex(anIndex);
-						aluno.getPeriodo(rdbMatutino, rdbVespertino, rdbNoturno);
-						habilitarCampos = false;
-					} 
-
-					catch (Exception e1) {
-						e1.printStackTrace();
-					}
-				}
+					txtCpf.setText(aluno.getCpf());
+					txtNome.setText(aluno.getNome());
+					txtDataNascimento.setText(aluno.getDataNascimento());
+					cmbGenero.setSelectedIndex(aluno.getGenero(cmbGenero));
+					txtEmail.setText(aluno.getEmail());
+					txtCelular.setText(aluno.getCelular());
+					txtTelefone.setText(aluno.getTelefone());
+					txtCep.setText(aluno.getCep());
+					txtEndereco.setText(aluno.getEndereco());
+					txtNumero.setText(aluno.getNumero());
+					txtComplemento.setText(aluno.getComplemento());
+					txtBairro.setText(aluno.getBairro());
+					txtCidade.setText(aluno.getCidade());
+					//cmbUF.setSelectedIndex(anIndex);
+					aluno.getPeriodo(rdbMatutino, rdbVespertino, rdbNoturno);
+					habilitarCampos = false;
+				} 
 				else {
+					f = new FerramentasFormulario();
 					f.limpaComponentes(txtRgm, txtNome, txtCpf, txtEmail, txtEmail, txtCelular, txtTelefone);
 					f.limpaComponentes(txtCep, txtEndereco, txtNumero, txtComplemento, txtBairro, txtCidade); 
 					f.desabilitaComponentes(txtNome, txtEmail, txtCelular, txtTelefone); 
@@ -511,6 +509,7 @@ public class frmAluno extends JFrame {
 					cmbGenero.setEnabled(false);
 					txtRgm.setEnabled(true);
 					txtCpf.setEnabled(true);
+
 					habilitarCampos = true;
 				}
 			}
@@ -526,7 +525,46 @@ public class frmAluno extends JFrame {
 		btnConsultar.setBounds(70, 0, 60, 60);
 		panel_3.add(btnConsultar);
 
+		/*ALTERAR*/
+
 		btnAlterar = new JButton("");
+		btnAlterar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+
+				if(habilitarCampos == true) {
+
+					aluno.setNome(txtNome.getText()); 
+					aluno.setCpf(txtCpf.getText());
+					aluno.setDataNascimento(txtDataNascimento.getText());
+					aluno.setGenero(cmbGenero);
+					aluno.setEmail(txtEmail.getText());
+					aluno.setCelular(txtCelular.getText());
+					aluno.setTelefone(txtTelefone.getText());
+					aluno.setRgm(Integer.parseInt(txtRgm.getText()));
+					aluno.setPeriodo(rdbMatutino, rdbNoturno, rdbNoturno);
+					aluno.setCep(txtCep.getText());
+					aluno.setEndereco(txtEndereco.getText());
+					aluno.setNumero(txtNumero.getText());
+					aluno.setComplemento(txtComplemento.getText());
+					aluno.setBairro(txtBairro.getText());
+					aluno.setCidade(txtCidade.getText());
+					aluno.setUf(cmbUF.getSelectedItem().toString());
+
+					aluno.alteraeAluno();
+				}
+				else {
+					f = new FerramentasFormulario();
+					f.habilitaComponentes(txtRgm, txtNome, txtCpf, txtDataNascimento, txtEmail, txtCelular, txtTelefone); //Habilita os campos do panel Alunos
+					f.habilitaComponentes(txtCep, txtEndereco, txtNumero, txtComplemento, txtBairro, txtCidade); //Habilita os campos do panel Endereço
+					f.habilitaComponentes(cmbCurso, cmbUF, cmbUnidade);
+					f.habilitaComponentes(rdbMatutino, rdbNoturno, rdbVespertino);
+					cmbGenero.setEnabled(true);
+
+					habilitarCampos = true;
+				}
+
+			}
+		});
 		btnAlterar.setIcon(new ImageIcon("C:\\Users\\athos\\Google Drive\\Analise e desenvolvimento de sistemas\\3\u00BA Semestre\\Tecnicas de Programa\u00E7\u00E3o\\cadastro_alunos\\unicid.cadastroAluno\\CadastroAluno\\icons\\edit.png"));
 		btnAlterar.setToolTipText("Alterar");
 		btnAlterar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -537,7 +575,17 @@ public class frmAluno extends JFrame {
 		btnAlterar.setBounds(140, 0, 60, 60);
 		panel_3.add(btnAlterar);
 
+		/*EXCLUIR*/
+
 		btnExcluir = new JButton("");
+		btnExcluir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+
+				aluno.excluirAluno(aluno.getRgm());
+
+			}
+		});
+
 		btnExcluir.setIcon(new ImageIcon("C:\\Users\\athos\\Google Drive\\Analise e desenvolvimento de sistemas\\3\u00BA Semestre\\Tecnicas de Programa\u00E7\u00E3o\\cadastro_alunos\\unicid.cadastroAluno\\CadastroAluno\\icons\\delete.png"));
 		btnExcluir.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnExcluir.setBorder(null);

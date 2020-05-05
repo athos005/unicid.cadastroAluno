@@ -1,8 +1,7 @@
 package br.com.unicid.cadastroaluno.model;
 
+import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
-
-import com.mysql.cj.jdbc.exceptions.NotUpdatable;
 
 import br.com.unicid.cadastroaluno.DAO.AlunoDAO;
 import br.com.unicid.cadastroaluno.view.frmAluno;
@@ -19,7 +18,7 @@ public class Aluno extends Pessoa{
 	private String nomeDisciplinaAluno;
 	private String notaDisciplinaAluno;
 	private int faltasDisciplinaAluno;
-	private int codPessoa;
+	private AlunoDAO DAOaluno;
 
 	/*CONSTRUTORES*/
 	/*------------------------------------*/
@@ -124,30 +123,62 @@ public class Aluno extends Pessoa{
 		this.faltasDisciplinaAluno = faltasDisciplina;
 	}
 
-	public int getCodPessoa() {
-		return this.codPessoa;
-	}
-
-	public void setCodPessoa(int codPessoa) {
-		this.codPessoa = codPessoa;
-	}
-
-
 	/*MÉTODOS DA CLASSE*/
 
-	public void salvarAluno() throws Exception {
+	public void salvarAluno() {
 
-		salvarCadastro();
-		AlunoDAO DAOaluno = new AlunoDAO();
-		DAOaluno.salvarAluno(frmAluno.aluno);
+		try {
+			salvarCadastro();
+			DAOaluno = new AlunoDAO();
+			DAOaluno.salvarAluno(frmAluno.aluno);
+			JOptionPane.showMessageDialog(null, "Salvo com Sucesso");
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	/* O método salvarAluno() deve criar um Objeto do tipo AlunoDAO() e utilizar o método salvarAluno() da classe AlunoDAO.
+	 * O método salvarAluno(), da classe AlunoDAO, deve recer um objeto do tipo Aluno(), 
+	 * que neste caso foi criado no formulário frmAluno, para receber
+	 * as informações que foram setadas nos atributos da classe Aluno.
+	 */
+
+	public void consultarAluno(int rgmAluno){
+
+		try {
+			DAOaluno = new AlunoDAO();
+			DAOaluno.consultarAluno(rgmAluno);
+			connsultarCadastro();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
 
 	}
 
-	public void consultarAluno(int rgmAluno) throws Exception{
+	public void alteraeAluno(){
 
-		AlunoDAO DAOaluno = new AlunoDAO();
-		DAOaluno.consultarAluno(rgmAluno);
-		connsultarCadastro();
+		try {
+			alterarCadastro();
+			DAOaluno = new AlunoDAO();
+			DAOaluno.alterarAluno(frmAluno.aluno);
+			JOptionPane.showMessageDialog(null, "Alterado com Sucesso");
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
+	public void excluirAluno(int rgmAluno){
+
+		try {
+			DAOaluno = new AlunoDAO();
+			DAOaluno.excluirAluno(rgmAluno);
+			excluirCadastrato();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }
