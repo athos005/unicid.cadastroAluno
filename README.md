@@ -63,15 +63,3 @@ O projeto deve aprensetar as seguintes telas:
     
   - Ajuda
     - Sobre
-------------------------------------------------------
-
-## Exemplos das Telas
-
-![Cadastro](https://github.com/athos005/unicid.cadastroAluno/blob/master/cadastro_alunos/Documenta%C3%A7%C3%A3o/Exemplo_Tela1.png)
-![Curso](https://github.com/athos005/unicid.cadastroAluno/blob/master/cadastro_alunos/Documenta%C3%A7%C3%A3o/Exemplo_Tela2.png)
-![Notas e Faltas](https://github.com/athos005/unicid.cadastroAluno/blob/master/cadastro_alunos/Documenta%C3%A7%C3%A3o/Exemplo_Tela3.png)
-![Boletim](https://github.com/athos005/unicid.cadastroAluno/blob/master/cadastro_alunos/Documenta%C3%A7%C3%A3o/Exemplo_Tela4.png)
-![Menu - Aluno](https://github.com/athos005/unicid.cadastroAluno/blob/master/cadastro_alunos/Documenta%C3%A7%C3%A3o/Exemplo_Tela5.png)
-![Menu - Nota e Faltas](https://github.com/athos005/unicid.cadastroAluno/blob/master/cadastro_alunos/Documenta%C3%A7%C3%A3o/Exemplo_Tela6.png)
-![Menu - Ajuda](https://github.com/athos005/unicid.cadastroAluno/blob/master/cadastro_alunos/Documenta%C3%A7%C3%A3o/Exemplo_Tela7.png)
-
