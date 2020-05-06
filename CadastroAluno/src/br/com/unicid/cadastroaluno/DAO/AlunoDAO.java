@@ -114,23 +114,27 @@ public class AlunoDAO{
 
 	/*LISTAR ALUNOS*/
 	
-	public Aluno pegarDadosAluno() {
-		return this.aluno;
-	}
-	
-	public List listarTodos() throws Exception{
+	public List listarAlunos() throws Exception{
 
-		List<Aluno> lista = new ArrayList<Aluno>();
+		List<Aluno> listaAluno = new ArrayList<Aluno>();
+		
 		try{
-			ps = conn.prepareStatement("SELECT * FROM ALUNO");
+			
+			ps = conn.prepareStatement("SELECT * FROM aluno");
 			rs = ps.executeQuery();
+			
 			while(rs.next()) {
-				int codAluno = rs.getInt("Nome da coluna");
+				
+				aluno = frmAluno.aluno;
+				aluno.setPeriodo(rs.getString("periodo"));
+				aluno.setCodPessoa(rs.getInt("cod_pessoa"));
+				listaAluno.add(aluno);
+				ps.close();	
 			}
 		}
 		catch(Exception e) {
 			throw new Exception("Erro ao Listar" + e.getMessage());
 		}
-		return lista;
+		return listaAluno;
 	}
 }

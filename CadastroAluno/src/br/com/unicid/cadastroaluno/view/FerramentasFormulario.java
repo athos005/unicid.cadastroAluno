@@ -38,6 +38,7 @@ public class FerramentasFormulario {
 		}
 	}
 	
+	
 	public void desabilitaComponentes(JTextField... args) {
 		for(JTextField componentes: args) {
 			componentes.setEnabled(false);

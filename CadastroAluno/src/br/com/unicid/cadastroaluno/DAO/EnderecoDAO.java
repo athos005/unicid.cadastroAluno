@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JOptionPane;
 
@@ -128,4 +130,23 @@ public class EnderecoDAO{
 			throw new Exception("Erro ao Excluir" + e.getMessage());
 		}
 	}
-}
+
+	public List listaUF() throws Exception {
+
+		List<String> ufLista = new ArrayList<String>();
+
+		try {
+			ps = conn.prepareStatement("SELECT * FROM uf");
+			rs = ps.executeQuery(); 
+			while(rs.next()) {
+				ufLista.add(rs.getString("sigla"));
+			}
+			ps.close();
+			return ufLista;
+		}
+		catch(Exception e) {
+			throw new Exception("Erro ao Buscar" + e.getMessage()); 
+		}
+
+	}
+}	
