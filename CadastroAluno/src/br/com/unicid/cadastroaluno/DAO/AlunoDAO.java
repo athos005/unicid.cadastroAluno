@@ -23,6 +23,7 @@ public class AlunoDAO{
 	private PreparedStatement ps; //executa a query
 	private ResultSet rs;
 
+	/*INICIA A CONEÇÃO COM O BANCO AO CONSTRUIR O OBJETO*/
 	public AlunoDAO() throws Exception {
 		try {
 			conn = ConnectionDB.getConnection();
@@ -56,6 +57,7 @@ public class AlunoDAO{
 	/*CONSULTAR ALUNO*/
 	
 	public Aluno consultarAluno(int rgm) throws Exception {
+		
 		try {
 			ps = conn.prepareStatement("SELECT * FROM aluno WHERE rgm=?");
 			ps.setInt(1, rgm);

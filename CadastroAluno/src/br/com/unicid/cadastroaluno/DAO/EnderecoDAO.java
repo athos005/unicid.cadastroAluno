@@ -22,6 +22,7 @@ public class EnderecoDAO{
 	private PreparedStatement ps; //executa a query
 	private ResultSet rs;
 
+	/*INICIA A CONEÇÃO COM O BANCO AO CONSTRUIR O OBJETO*/
 	public EnderecoDAO() throws Exception{
 		try {
 			conn = ConnectionDB.getConnection();
@@ -131,13 +132,16 @@ public class EnderecoDAO{
 		}
 	}
 
+	/*LISTAR UF*/
+	
 	public List listaUF() throws Exception {
 
 		List<String> ufLista = new ArrayList<String>();
 
 		try {
 			ps = conn.prepareStatement("SELECT * FROM uf");
-			rs = ps.executeQuery(); 
+			rs = ps.executeQuery();
+			ufLista.add("Selecione -");
 			while(rs.next()) {
 				ufLista.add(rs.getString("sigla"));
 			}

@@ -20,6 +20,7 @@ public class PessoaDAO {
 	private PreparedStatement ps; //executa a query
 	private ResultSet rs;
 
+	/*INICIA A CONEÇÃO COM O BANCO AO CONSTRUIR O OBJETO*/
 	public PessoaDAO() throws Exception{
 		try {
 			conn = ConnectionDB.getConnection();

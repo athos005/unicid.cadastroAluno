@@ -29,6 +29,8 @@ import javax.swing.text.MaskFormatter;
 
 import br.com.unicid.cadastroaluno.DAO.AlunoDAO;
 import br.com.unicid.cadastroaluno.model.Aluno;
+import br.com.unicid.cadastroaluno.model.Curso;
+import br.com.unicid.cadastroaluno.model.Endereco;
 import br.com.unicid.cadastroaluno.model.Pessoa;
 
 import javax.swing.JSpinner;
@@ -46,64 +48,64 @@ public class frmAluno extends JFrame {
 
 	private JPanel contentPane;
 	public JTabbedPane tabbedPane;
-	public JPanel pnlDadosPessoais;
-	public JTextField txtRgm;
-	public JLabel lblNewLabel;
-	public JTextField txtNome;
-	public JLabel lblNome;
-	public JLabel lblCpf;
-	public JFormattedTextField txtCpf;
+	public static JPanel pnlDadosPessoais;
+	public static JTextField txtRgm;
+	public static JLabel lblNewLabel;
+	public static JTextField txtNome;
+	public static JLabel lblNome;
+	public static JLabel lblCpf;
+	public static JFormattedTextField txtCpf;
 	private final ButtonGroup Sexo = new ButtonGroup();
-	public JLabel lblSexo;
-	public JPanel panel;
-	public JTextField txtEmail;
-	public JLabel lblEmail;
-	public JFormattedTextField txtCelular;
-	public JLabel lblCelular;
+	public static JLabel lblSexo;
+	public static JPanel panel;
+	public static JTextField txtEmail;
+	public static JLabel lblEmail;
+	public static JFormattedTextField txtCelular;
+	public static JLabel lblCelular;
 	public JLabel lblTelefone;
-	public JFormattedTextField txtTelefone;
-	public JPanel panel_1;
-	public JPanel pnlEndereco;
-	public JLabel lblCep;
-	public JFormattedTextField txtCep;
-	public JTextField txtEndereco;
-	public JLabel lblNome_1;
-	public JTextField txtNumero;
-	public JLabel lblNome_2;
-	public JLabel lblNome_3;
-	public JTextField txtComplemento;
-	public JLabel lblNome_4;
-	public JTextField txtCidade;
-	public JComboBox cmbUF;
-	public JLabel lblNome_5;
-	public JPanel panel_2;
-	public JPanel pnlCurso;
-	public JLabel lblNome_6;
-	public JComboBox cmbCurso;
-	public JComboBox cmbUnidade;
-	public JLabel lblNome_7;
-	public JRadioButton rdbMatutino;
+	public static JFormattedTextField txtTelefone;
+	public static JPanel panel_1;
+	public static JPanel pnlEndereco;
+	public static JLabel lblCep;
+	public static JFormattedTextField txtCep;
+	public static JTextField txtEndereco;
+	public static JLabel lblNome_1;
+	public static JTextField txtNumero;
+	public static JLabel lblNome_2;
+	public static JLabel lblNome_3;
+	public static JTextField txtComplemento;
+	public static JLabel lblNome_4;
+	public static JTextField txtCidade;
+	public static JComboBox cmbUF;
+	public static JLabel lblNome_5;
+	public static JPanel panel_2;
+	public static JPanel pnlCurso;
+	public static JLabel lblNome_6;
+	public static JComboBox cmbCurso;
+	public static JComboBox cmbUnidade;
+	public static JLabel lblNome_7;
+	public static JRadioButton rdbMatutino;
 	private final ButtonGroup Periodo = new ButtonGroup();
-	public JRadioButton rdbVespertino;
-	public JRadioButton rdbNoturno;
-	public JLabel lblNome_8;
-	public JPanel panel_4;
-	public JLabel lblNome_9;
-	public JTextField txtBairro;
-	public JButton btnNovo;
-	public JButton btnConsultar;
-	public JButton btnAlterar;
-	public JButton btnExcluir;
-	public JButton btnCancelar;
-	public JPanel panel_3;
-	public JComboBox cmbGenero;
-
+	public static JRadioButton rdbVespertino;
+	public static JRadioButton rdbNoturno;
+	public static JLabel lblNome_8;
+	public static JPanel panel_4;
+	public static JLabel lblNome_9;
+	public static JTextField txtBairro;
+	public static JButton btnNovo;
+	public static JButton btnConsultar;
+	public static JButton btnAlterar;
+	public static JButton btnExcluir;
+	public static JButton btnCancelar;
+	public static JPanel panel_3;
+	public static JComboBox cmbGenero;
+	public JLabel lblCelular_1;
+	public static JFormattedTextField txtNascimento;
+	
 	public static Aluno aluno;
 	public static Pessoa pessoa;
 	private FerramentasFormulario f;
 	protected boolean habilitarCampos;
-	public JLabel lblCelular_1;
-	public JFormattedTextField txtNascimento;
 
 
 	/**
@@ -342,10 +344,11 @@ public class frmAluno extends JFrame {
 		panel_2.add(txtCidade);
 		txtCidade.setColumns(10);
 
+		Endereco uf = new Endereco();
 		cmbUF = new JComboBox();
 		cmbUF.setBackground(Color.WHITE);
 		cmbUF.setEnabled(false);
-		cmbUF.setModel(new DefaultComboBoxModel(new String[] {"- Selecione"}));
+		cmbUF.setModel(new DefaultComboBoxModel(uf.buscarUF().toArray()));
 		cmbUF.setBounds(210, 292, 90, 30);
 		panel_2.add(cmbUF);
 
@@ -383,10 +386,11 @@ public class frmAluno extends JFrame {
 		panel_4.add(lblNome_6);
 		lblNome_6.setFont(new Font("Malgun Gothic", Font.BOLD, 12));
 
+		Curso curso = new Curso();
 		cmbCurso = new JComboBox();
 		cmbCurso.setBackground(Color.WHITE);
 		cmbCurso.setEnabled(false);
-		cmbCurso.setModel(new DefaultComboBoxModel(new String[] {"- Selecione"}));
+		cmbCurso.setModel(new DefaultComboBoxModel(curso.buscarCurso(cmbCurso).toArray()));
 		cmbCurso.setBounds(0, 25, 300, 30);
 		panel_4.add(cmbCurso);
 
@@ -445,10 +449,9 @@ public class frmAluno extends JFrame {
 		btnNovo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
-				aluno = new Aluno(); //CRIA UM NOVO OBEJTO DO TIPO ALUNO
-				
 				if(habilitarCampos == true) {
 
+					aluno = new Aluno(); //VARIAVEL ALUNO CRIADA NA LINHA 99
 					aluno.setNome(txtNome.getText()); 
 					aluno.setCpf(txtCpf.getText());
 					aluno.setDataNascimento(txtNascimento.getText());
@@ -468,19 +471,15 @@ public class frmAluno extends JFrame {
 					
 					aluno.salvarAluno(); //MÉTODO DA CLASSE ALUNO
 
+					f = new FerramentasFormulario();
+					f.limparTudoAluno();
 					habilitarCampos = false;
 				} 
 				else if(habilitarCampos == false)
 				{
-					aluno.buscarUF(cmbUF);
 					f = new FerramentasFormulario();
-					f.limpaComponentes(txtRgm, txtNome, txtCpf, txtEmail, txtEmail, txtCelular, txtTelefone); //Limpa os campos do panel Alunos
-					f.limpaComponentes(txtCep, txtEndereco, txtNumero, txtComplemento, txtBairro, txtCidade); //Limpa os campos do panel Endereço
-					f.resetCombo(cmbCurso, cmbUF, cmbUnidade, cmbGenero); //Coloca os combos do formulário na posição inicial
-					f.habilitaComponentes(txtRgm, txtNome, txtCpf, txtNascimento, txtEmail, txtCelular, txtTelefone); //Habilita os campos do panel Alunos
-					f.habilitaComponentes(txtCep, txtEndereco, txtNumero, txtComplemento, txtBairro, txtCidade); //Habilita os campos do panel Endereço
-					f.habilitaComponentes(cmbCurso, cmbUF, cmbUnidade);
-					f.habilitaComponentes(rdbMatutino, rdbNoturno, rdbVespertino);
+					f.limparTudoAluno();
+					f.habilitaTudoAluno();
 					cmbGenero.setEnabled(true);
 					btnNovo.setToolTipText("Cadastrar");
 					f.desabilitaComponentes(btnConsultar, btnAlterar, btnExcluir);
@@ -521,20 +520,21 @@ public class frmAluno extends JFrame {
 					txtComplemento.setText(aluno.getComplemento());
 					txtBairro.setText(aluno.getBairro());
 					txtCidade.setText(aluno.getCidade());
-					//cmbUF.setSelectedIndex(anIndex);
+					cmbUF.setSelectedIndex(aluno.getUF(cmbUF));
 					aluno.getPeriodo(rdbMatutino, rdbVespertino, rdbNoturno);
-					habilitarCampos = false;
+				
+					f.resetCombo(cmbCurso, cmbUF, cmbUnidade, cmbGenero);
+					
+					//habilitarCampos = false;
 				} 
 				else {
+					
 					f = new FerramentasFormulario();
-					f.limpaComponentes(txtRgm, txtNome, txtCpf, txtEmail, txtEmail, txtCelular, txtTelefone);
-					f.limpaComponentes(txtCep, txtEndereco, txtNumero, txtComplemento, txtBairro, txtCidade);
-					f.resetCombo(cmbCurso, cmbUF, cmbUnidade, cmbGenero);
+					f.limparTudoAluno();
 					f.desabilitaComponentes(txtNome, txtCpf, txtEmail, txtCelular, txtTelefone); 
 					f.desabilitaComponentes(txtCep, txtEndereco, txtNumero, txtComplemento, txtBairro, txtCidade); 
-					f.desabilitaComponentes(cmbCurso, cmbUF, cmbUnidade);
+					f.desabilitaComponentes(cmbCurso, cmbUF, cmbUnidade, cmbGenero);
 					f.desabilitaComponentes(rdbMatutino, rdbNoturno, rdbVespertino);
-					cmbGenero.setEnabled(false);
 					txtRgm.setEnabled(true);
 					
 					habilitarCampos = true;

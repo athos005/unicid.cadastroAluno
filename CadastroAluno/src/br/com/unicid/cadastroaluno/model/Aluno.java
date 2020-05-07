@@ -62,24 +62,23 @@ public class Aluno extends Pessoa{
 		return this.periodo;
 	}
 
-	public boolean getPeriodo(JRadioButton matutino, JRadioButton vespertino, JRadioButton noturno) {
+	public void getPeriodo(JRadioButton matutino, JRadioButton vespertino, JRadioButton noturno) {
 
 		boolean selecionado = true;
-		String periodo = this.periodo;
+
 
 		if(periodo == "Matutino") {
-			matutino.isSelected();
+			matutino.setSelected(selecionado);
 		}
 		else 
 			if(periodo == "Vespertino") {
-				vespertino.isSelected();
+				vespertino.setSelected(selecionado);
 			}
 			else 
 				if(periodo == "Noturno") {
-					noturno.isSelected();
+					noturno.setSelected(selecionado);
 				}
 
-		return selecionado;
 	}
 
 	public void setPeriodo(String periodo) {

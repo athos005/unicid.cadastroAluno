@@ -72,6 +72,98 @@ public class Endereco {
 		return this.uf;
 	}
 
+	public int getUF(JComboBox<?> UF) {
+		
+		int index = 0;
+		
+		switch (this.uf) {
+		case "AC":
+			index = 1;
+			break;
+		case "AL":
+			index = 2;
+			break;
+		case "AP":
+			index = 3;
+			break;
+		case "AM":
+			index = 4;
+			break;
+		case "BA":
+			index = 5;
+			break;
+		case "CE":
+			index = 6;
+			break;
+		case "ES":
+			index = 7;
+			break;
+		case "DF":
+			index = 8;
+			break;
+		case "GO":
+			index = 9;
+			break;
+		case "MA":
+			index = 10;
+			break;
+		case "MT":
+			index = 11;
+			break;
+		case "MS":
+			index = 12;
+			break;
+		case "MG":
+			index = 13;
+			break;
+		case "PA":
+			index = 14;
+			break;
+		case "PB":
+			index = 15;
+			break;
+		case "PR":
+			index = 16;
+			break;
+		case "PE":
+			index = 17;
+			break;
+		case "PI":
+			index = 18;
+			break;
+		case "RJ":
+			index = 19;
+			break;
+		case "RN":
+			index = 20;
+			break;
+		case "RS":
+			index = 21;
+			break;
+		case "RO":
+			index = 22;
+			break;
+		case "RR":
+			index = 23;
+			break;
+		case "SC":
+			index = 24;
+			break;
+		case "SP":
+			index = 25;
+			break;
+		case "SE":
+			index = 26;
+			break;
+		case "TO":
+			index = 27;
+			break;
+		}
+		
+		
+		return index;
+	}
+	
 	public void setUf(String uf) {
 		this.uf = uf;
 	}
@@ -84,6 +176,21 @@ public class Endereco {
 		this.cidade = cidade;
 	}
 
+	
+	public List buscarUF(){
+
+		List<String> listaUF = new ArrayList<String>();
+
+		try {
+			EnderecoDAO DAOendereco = new EnderecoDAO();			
+			listaUF = DAOendereco.listaUF();
+		} 
+		catch (Exception e) {
+			System.out.println("erro ao listar" + e.getMessage());
+		}
+		return listaUF;	
+	}
+	
 	public List buscarUF(JComboBox<String> cmbUF){
 
 		List<String> listaUF = new ArrayList<String>();
@@ -94,7 +201,6 @@ public class Endereco {
 			for(String uf: listaUF) {
 				cmbUF.addItem(uf);
 			}
-
 		} 
 		catch (Exception e) {
 			System.out.println("erro ao listar" + e.getMessage());
