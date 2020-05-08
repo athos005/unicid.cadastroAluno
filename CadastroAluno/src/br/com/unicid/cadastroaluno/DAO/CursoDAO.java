@@ -11,10 +11,10 @@ import javax.swing.JComboBox;
 import br.com.unicid.cadastroaluno.connection.ConnectionDB;
 import br.com.unicid.cadastroaluno.model.Aluno;
 import br.com.unicid.cadastroaluno.model.Curso;
+import br.com.unicid.cadastroaluno.view.frmAluno;
 
 public class CursoDAO {
 
-	private Curso curso;
 	private Connection conn; //Conecta com o banco
 	private PreparedStatement ps; //executa a query
 	private ResultSet rs;
@@ -29,7 +29,7 @@ public class CursoDAO {
 		}
 	}
 
-	public List buscarCurso() throws Exception{
+	public List getNomesCursos() throws Exception{
 
 		List<String> listaCurso = new ArrayList<String>();
 
@@ -48,30 +48,54 @@ public class CursoDAO {
 		catch(Exception e) {
 			throw new Exception("Erro ao Buscar" + e.getMessage());
 		}
-
 	}
-
-	public List buscarDisciplinas(JComboBox<?> NomeCurso) throws Exception{
-
-		String nomeCurso = NomeCurso.getSelectedItem().toString();
-		int codCurso = 0;
+	
+	public int getCodCurso(String nomeCurso) throws Exception{
 
 		try {
+
 			ps = conn.prepareStatement("SELECT cod_curso FROM curso WHERE nome_curso=?");
-			ps.setString(1, nomeCurso); 
-			rs = ps.executeQuery(); 
+			ps.setString(1, nomeCurso);
+			rs = ps.executeQuery();
 			if(rs.next()) {
-				codCurso = rs.getInt("cod_curso");
+				frmAluno.aluno.curso.setCodCurso((rs.getInt("cod_curso")));
 			}
-
-		} catch (Exception e) {
-
+			ps.close();
+			
+			return frmAluno.aluno.curso.getCodCurso();
+			
 		}
+		catch(Exception e) {
+			throw new Exception("Erro ao Buscar" + e.getMessage());
+		}
+	}
+	
+	public String getNomeCurso(int codCurso) throws Exception{
 
+		try {
+
+			ps = conn.prepareStatement("SELECT nome_curso FROM curso WHERE cod_curso=?");
+			ps.setInt(1, codCurso);
+			rs = ps.executeQuery();
+			if(rs.next()) {
+				frmAluno.aluno.curso.setNomeCurso(rs.getString("nome_curso"));
+			}
+			ps.close();
+			
+			return frmAluno.aluno.curso.getNomeCurso();
+			
+		}
+		catch(Exception e) {
+			throw new Exception("Erro ao Buscar" + e.getMessage());
+		}
+	}
+
+	public List getDisciplinas(int codCurso) throws Exception{
+
+		codCurso = frmAluno.aluno.curso.getCodCurso();
 		List<String> listaDisciplinas = new ArrayList<String>();
 
 		try {
-
 			ps = conn.prepareStatement("SELECT * FROM disciplina WHERE cod_curso=?");
 			ps.setInt(1, codCurso);
 			rs = ps.executeQuery();

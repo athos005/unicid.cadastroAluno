@@ -13,10 +13,17 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.border.EmptyBorder;
+
+import br.com.unicid.cadastroaluno.model.Aluno;
+import br.com.unicid.cadastroaluno.model.Pessoa;
+
 import javax.swing.JButton;
 import java.awt.Insets;
 import javax.swing.ImageIcon;
 import java.awt.Cursor;
+import javax.swing.DefaultComboBoxModel;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class frmNotasFaltas extends JFrame {
 
@@ -45,6 +52,10 @@ public class frmNotasFaltas extends JFrame {
 	public JButton btnAlterar;
 	public JButton btnExcluir;
 	public JButton btnCancelar;
+	
+	public static Pessoa pessoa;
+	private FerramentasFormulario f;
+	protected boolean habilitarCampos;
 
 	/**
 	 * Launch the application.
@@ -83,12 +94,12 @@ public class frmNotasFaltas extends JFrame {
 		contentPane.add(tabbedPane);
 		
 		pnlNotasFaltas = new JPanel();
-		pnlNotasFaltas.setBackground(Color.WHITE);
+		pnlNotasFaltas.setBackground(new Color(240, 240, 240));
 		tabbedPane.addTab("NOTAS E FALTAS", null, pnlNotasFaltas, null);
 		pnlNotasFaltas.setLayout(null);
 		
 		panel = new JPanel();
-		panel.setBackground(Color.WHITE);
+		panel.setBackground(new Color(240, 240, 240));
 		panel.setBounds(22, 10, 300, 385);
 		pnlNotasFaltas.add(panel);
 		panel.setLayout(null);
@@ -124,6 +135,8 @@ public class frmNotasFaltas extends JFrame {
 		txtCurso.setColumns(10);
 		
 		cmbDiscplina = new JComboBox();
+		cmbDiscplina.setModel(new DefaultComboBoxModel(new String[] {}));
+		cmbDiscplina.setBackground(Color.WHITE);
 		cmbDiscplina.setBounds(0, 223, 300, 30);
 		panel.add(cmbDiscplina);
 		
@@ -138,6 +151,8 @@ public class frmNotasFaltas extends JFrame {
 		lblNome_2.setFont(new Font("Malgun Gothic", Font.BOLD, 12));
 		
 		cmbSemestre = new JComboBox();
+		cmbSemestre.setModel(new DefaultComboBoxModel(new String[] {"Selecione -", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10"}));
+		cmbSemestre.setBackground(Color.WHITE);
 		cmbSemestre.setBounds(0, 289, 150, 30);
 		panel.add(cmbSemestre);
 		
@@ -152,6 +167,7 @@ public class frmNotasFaltas extends JFrame {
 		lblNome_3.setFont(new Font("Malgun Gothic", Font.BOLD, 12));
 		
 		textField = new JTextField();
+		textField.setBackground(Color.WHITE);
 		textField.setBounds(0, 355, 70, 30);
 		panel.add(textField);
 		textField.setColumns(10);
@@ -173,6 +189,10 @@ public class frmNotasFaltas extends JFrame {
 		contentPane.add(panel_1);
 		
 		btnNovo = new JButton("");
+		btnNovo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
 		btnNovo.setSelectedIcon(new ImageIcon("C:\\Users\\athos\\Google Drive\\Analise e desenvolvimento de sistemas\\3\u00BA Semestre\\Tecnicas de Programa\u00E7\u00E3o\\cadastro_alunos\\unicid.cadastroAluno\\CadastroAluno\\icons\\new.png"));
 		btnNovo.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnNovo.setToolTipText("Novo");
@@ -184,6 +204,17 @@ public class frmNotasFaltas extends JFrame {
 		panel_1.add(btnNovo);
 		
 		btnConsultar = new JButton("");
+		btnConsultar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				frmAluno.aluno = new Aluno();
+				frmAluno.aluno.setRgm(Integer.parseInt(txtRgm.getText()));
+				frmAluno.aluno.consultarAluno(frmAluno.aluno.getRgm());
+				txtNome.setText(frmAluno.aluno.getNome());
+				txtCurso.setText(frmAluno.aluno.curso.getNomeCurso());
+				cmbDiscplina.setModel(new DefaultComboBoxModel(frmAluno.aluno.curso.buscarDisciplinas(cmbDiscplina).toArray()));
+			}
+		});
 		btnConsultar.setSelectedIcon(new ImageIcon("C:\\Users\\athos\\Google Drive\\Analise e desenvolvimento de sistemas\\3\u00BA Semestre\\Tecnicas de Programa\u00E7\u00E3o\\cadastro_alunos\\unicid.cadastroAluno\\CadastroAluno\\icons\\search.png"));
 		btnConsultar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnConsultar.setIcon(new ImageIcon("C:\\Users\\athos\\Google Drive\\Analise e desenvolvimento de sistemas\\3\u00BA Semestre\\Tecnicas de Programa\u00E7\u00E3o\\cadastro_alunos\\unicid.cadastroAluno\\CadastroAluno\\icons\\search.png"));

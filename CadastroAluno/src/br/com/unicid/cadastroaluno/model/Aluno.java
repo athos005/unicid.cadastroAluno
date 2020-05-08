@@ -4,6 +4,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 
 import br.com.unicid.cadastroaluno.DAO.AlunoDAO;
+import br.com.unicid.cadastroaluno.DAO.CursoDAO;
 import br.com.unicid.cadastroaluno.view.frmAluno;
 
 public class Aluno extends Pessoa{
@@ -15,20 +16,20 @@ public class Aluno extends Pessoa{
 	private String nomeCurso;
 	private String periodo;
 	private String campus;
-	private String nomeDisciplinaAluno;
-	private String notaDisciplinaAluno;
-	private int faltasDisciplinaAluno;
+	public Curso curso;
 	private AlunoDAO DAOaluno;
+	private CursoDAO cursoDAO;
 
 	/*CONSTRUTORES*/
 	/*------------------------------------*/
 
 	public Aluno() {
-
+		curso = new Curso();
 	}
 
 	public Aluno(String nomeAluno, String cpfAluno){
 		super(nomeAluno, cpfAluno);
+		curso = new Curso();
 	}
 
 	/*GETTERS & SETTERS*/
@@ -98,30 +99,6 @@ public class Aluno extends Pessoa{
 				}
 	}
 
-	public String getNomeDisciplina() {
-		return nomeDisciplinaAluno;
-	}
-
-	public void setNomeDisciplina(String nomeDisciplina) {
-		this.nomeDisciplinaAluno = nomeDisciplina;
-	}
-
-	public String getNotaDisciplina() {
-		return notaDisciplinaAluno;
-	}
-
-	public void setNotaDisciplina(String notaDisciplina) {
-		this.notaDisciplinaAluno = notaDisciplina;
-	}
-
-	public int getFaltasDisciplina() {
-		return faltasDisciplinaAluno;
-	}
-
-	public void setFaltasDisciplina(int faltasDisciplina) {
-		this.faltasDisciplinaAluno = faltasDisciplina;
-	}
-
 	/*MÉTODOS DA CLASSE*/
 
 	public void salvarAluno() {
@@ -149,6 +126,10 @@ public class Aluno extends Pessoa{
 			DAOaluno = new AlunoDAO();
 			DAOaluno.consultarAluno(rgmAluno);
 			connsultarCadastro();
+			//System.out.println(frmAluno.aluno.curso.getCodCurso());
+			cursoDAO = new CursoDAO();
+			cursoDAO.getNomeCurso(frmAluno.aluno.curso.getCodCurso());
+			
 		}
 		catch (Exception e) {
 			e.printStackTrace();

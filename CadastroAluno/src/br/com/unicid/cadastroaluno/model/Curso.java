@@ -7,6 +7,7 @@ import javax.swing.JComboBox;
 
 import br.com.unicid.cadastroaluno.DAO.CursoDAO;
 import br.com.unicid.cadastroaluno.DAO.EnderecoDAO;
+import br.com.unicid.cadastroaluno.view.frmAluno;
 
 public class Curso {
 
@@ -14,6 +15,11 @@ public class Curso {
 	private String disciplina;
 	private int codCurso;
 	private int codDisciplina;
+
+
+	public Curso(){
+
+	}
 
 	public String getNomeCurso() {
 		return nomeCurso;
@@ -54,10 +60,9 @@ public class Curso {
 		try {
 
 			CursoDAO DAOcurso = new CursoDAO();			
-			listaCursos = DAOcurso.buscarCurso();
+			listaCursos = DAOcurso.getNomesCursos();
 
 			for(String curso: listaCursos) {
-
 				cmbCurso.addItem(curso);
 			}
 		} 
@@ -68,14 +73,15 @@ public class Curso {
 		return listaCursos;
 	}
 
-	public List buscarDisciplina(JComboBox<String> cmbDisciplina, JComboBox<?> cmbCurso){
+	public List buscarDisciplinas(JComboBox<String> cmbDisciplina){
 
+		
 		List<String> listaDisciplina = new ArrayList<String>();
 
 		try {
 
 			CursoDAO DAOcurso = new CursoDAO();			
-			listaDisciplina = DAOcurso.buscarDisciplinas(cmbCurso);
+			listaDisciplina = DAOcurso.getDisciplinas(frmAluno.aluno.curso.codCurso);
 
 			for(String curso: listaDisciplina) {
 
@@ -87,5 +93,29 @@ public class Curso {
 		}	
 
 		return listaDisciplina;
+	}
+
+	public void buscaIdCurso(){
+
+		String nomeCurso = frmAluno.aluno.curso.getNomeCurso();
+
+		try {
+			CursoDAO DAOcurso = new CursoDAO();
+			DAOcurso.getCodCurso(nomeCurso);
+		} catch (Exception e) {
+
+		}
+	}
+	
+	public void buscaNomeCurso(){
+
+		int codCurso = frmAluno.aluno.curso.getCodCurso();
+
+		try {
+			CursoDAO DAOcurso = new CursoDAO();
+			DAOcurso.getNomeCurso(codCurso);
+		} catch (Exception e) {
+
+		}
 	}
 }

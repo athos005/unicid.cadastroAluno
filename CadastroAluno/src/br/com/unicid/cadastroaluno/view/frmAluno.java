@@ -386,11 +386,11 @@ public class frmAluno extends JFrame {
 		panel_4.add(lblNome_6);
 		lblNome_6.setFont(new Font("Malgun Gothic", Font.BOLD, 12));
 
-		Curso curso = new Curso();
+		aluno = new Aluno();
 		cmbCurso = new JComboBox();
 		cmbCurso.setBackground(Color.WHITE);
 		cmbCurso.setEnabled(false);
-		cmbCurso.setModel(new DefaultComboBoxModel(curso.buscarCurso(cmbCurso).toArray()));
+		cmbCurso.setModel(new DefaultComboBoxModel(aluno.curso.buscarCurso(cmbCurso).toArray()));
 		cmbCurso.setBounds(0, 25, 300, 30);
 		panel_4.add(cmbCurso);
 
@@ -468,7 +468,10 @@ public class frmAluno extends JFrame {
 					aluno.setBairro(txtBairro.getText());
 					aluno.setCidade(txtCidade.getText());
 					aluno.setUf(cmbUF.getSelectedItem().toString());
+					aluno.curso.setNomeCurso(cmbCurso.getSelectedItem().toString());
+					aluno.curso.buscaIdCurso();
 					
+										
 					aluno.salvarAluno(); //MÉTODO DA CLASSE ALUNO
 
 					f = new FerramentasFormulario();

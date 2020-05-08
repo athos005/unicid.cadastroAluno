@@ -39,14 +39,14 @@ public class AlunoDAO{
 
 		try {
 
-			String sql = "INSERT INTO aluno(rgm, periodo, cod_pessoa)" + "VALUES(?,?,?)";
+			String sql = "INSERT INTO aluno(rgm, periodo, cod_curso, cod_pessoa)" + "VALUES(?,?,?,?)";
 
 			ps = conn.prepareStatement(sql);
 			ps.setInt(1, aluno.getRgm());
 			ps.setString(2, aluno.getPeriodo());
-			ps.setInt(3, aluno.getCodPessoa());
+			ps.setInt(3, aluno.curso.getCodCurso());
+			ps.setInt(4, aluno.getCodPessoa());
 			ps.executeUpdate();
-
 			ps.close();
 		}
 		catch(Exception e) {
@@ -66,6 +66,8 @@ public class AlunoDAO{
 				aluno = frmAluno.aluno;
 				aluno.setPeriodo(rs.getString("periodo"));
 				aluno.setCodPessoa(rs.getInt("cod_pessoa"));
+				aluno.setCampus(rs.getString("campus"));
+				aluno.curso.setCodCurso(rs.getInt("cod_curso"));
 				ps.close();
 			}  
 		}
