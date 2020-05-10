@@ -28,8 +28,10 @@ import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.MaskFormatter;
 
 import br.com.unicid.cadastroaluno.DAO.AlunoDAO;
+import br.com.unicid.cadastroaluno.DAO.DisciplinaAlunoDAO;
 import br.com.unicid.cadastroaluno.model.Aluno;
 import br.com.unicid.cadastroaluno.model.Curso;
+import br.com.unicid.cadastroaluno.model.DisciplinasAluno;
 import br.com.unicid.cadastroaluno.model.Endereco;
 import br.com.unicid.cadastroaluno.model.Pessoa;
 
@@ -104,6 +106,7 @@ public class frmAluno extends JFrame {
 	
 	public static Aluno aluno;
 	public static Pessoa pessoa;
+	public DisciplinasAluno disciplinasAluno;
 	private FerramentasFormulario f;
 	protected boolean habilitarCampos;
 
@@ -470,9 +473,10 @@ public class frmAluno extends JFrame {
 					aluno.setUf(cmbUF.getSelectedItem().toString());
 					aluno.curso.setNomeCurso(cmbCurso.getSelectedItem().toString());
 					aluno.curso.buscaIdCurso();
-					
 										
 					aluno.salvarAluno(); //MÉTODO DA CLASSE ALUNO
+					disciplinasAluno = new DisciplinasAluno();
+					disciplinasAluno.salvarDisciplinasAluno();
 
 					f = new FerramentasFormulario();
 					f.limparTudoAluno();

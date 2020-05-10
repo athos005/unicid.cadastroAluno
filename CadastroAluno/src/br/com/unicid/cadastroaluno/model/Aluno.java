@@ -17,6 +17,7 @@ public class Aluno extends Pessoa{
 	private String periodo;
 	private String campus;
 	public Curso curso;
+	public DisciplinasAluno disciplinasAluno;
 	private AlunoDAO DAOaluno;
 	private CursoDAO cursoDAO;
 
@@ -25,11 +26,13 @@ public class Aluno extends Pessoa{
 
 	public Aluno() {
 		curso = new Curso();
+		disciplinasAluno = new DisciplinasAluno();
 	}
 
 	public Aluno(String nomeAluno, String cpfAluno){
 		super(nomeAluno, cpfAluno);
 		curso = new Curso();
+		disciplinasAluno = new DisciplinasAluno();
 	}
 
 	/*GETTERS & SETTERS*/

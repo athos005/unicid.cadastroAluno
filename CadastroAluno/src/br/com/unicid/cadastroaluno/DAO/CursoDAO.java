@@ -49,7 +49,7 @@ public class CursoDAO {
 			throw new Exception("Erro ao Buscar" + e.getMessage());
 		}
 	}
-	
+
 	public int getCodCurso(String nomeCurso) throws Exception{
 
 		try {
@@ -61,15 +61,15 @@ public class CursoDAO {
 				frmAluno.aluno.curso.setCodCurso((rs.getInt("cod_curso")));
 			}
 			ps.close();
-			
+
 			return frmAluno.aluno.curso.getCodCurso();
-			
+
 		}
 		catch(Exception e) {
 			throw new Exception("Erro ao Buscar" + e.getMessage());
 		}
 	}
-	
+
 	public String getNomeCurso(int codCurso) throws Exception{
 
 		try {
@@ -81,33 +81,12 @@ public class CursoDAO {
 				frmAluno.aluno.curso.setNomeCurso(rs.getString("nome_curso"));
 			}
 			ps.close();
-			
+
 			return frmAluno.aluno.curso.getNomeCurso();
-			
+
 		}
 		catch(Exception e) {
 			throw new Exception("Erro ao Buscar" + e.getMessage());
 		}
-	}
-
-	public List getDisciplinas(int codCurso) throws Exception{
-
-		codCurso = frmAluno.aluno.curso.getCodCurso();
-		List<String> listaDisciplinas = new ArrayList<String>();
-
-		try {
-			ps = conn.prepareStatement("SELECT * FROM disciplina WHERE cod_curso=?");
-			ps.setInt(1, codCurso);
-			rs = ps.executeQuery();
-			listaDisciplinas.add("Selecione -");
-			while(rs.next()) {
-				listaDisciplinas.add(rs.getString("nome_disciplina"));
-			}
-			ps.close();
-			return listaDisciplinas;
-		}
-		catch(Exception e) {
-			throw new Exception("Erro ao Buscar" + e.getMessage());
-		}	
 	}
 }

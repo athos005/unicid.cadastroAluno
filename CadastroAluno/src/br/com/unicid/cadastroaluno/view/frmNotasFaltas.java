@@ -120,6 +120,8 @@ public class frmNotasFaltas extends JFrame {
 		lblNome.setFont(new Font("Malgun Gothic", Font.BOLD, 12));
 		
 		txtNome = new JTextField();
+		txtNome.setDisabledTextColor(Color.GRAY);
+		txtNome.setEnabled(false);
 		txtNome.setBounds(0, 91, 300, 30);
 		panel.add(txtNome);
 		txtNome.setColumns(10);
@@ -130,6 +132,8 @@ public class frmNotasFaltas extends JFrame {
 		lblDisciplina.setFont(new Font("Malgun Gothic", Font.BOLD, 12));
 		
 		txtCurso = new JTextField();
+		txtCurso.setDisabledTextColor(Color.GRAY);
+		txtCurso.setEnabled(false);
 		txtCurso.setBounds(0, 157, 300, 30);
 		panel.add(txtCurso);
 		txtCurso.setColumns(10);
@@ -191,9 +195,12 @@ public class frmNotasFaltas extends JFrame {
 		btnNovo = new JButton("");
 		btnNovo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				
+				
+				
 			}
 		});
-		btnNovo.setSelectedIcon(new ImageIcon("C:\\Users\\athos\\Google Drive\\Analise e desenvolvimento de sistemas\\3\u00BA Semestre\\Tecnicas de Programa\u00E7\u00E3o\\cadastro_alunos\\unicid.cadastroAluno\\CadastroAluno\\icons\\new.png"));
+		btnNovo.setSelectedIcon(new ImageIcon(frmNotasFaltas.class.getResource("/br/com/unicid/cadastroaluno/view/new.png")));
 		btnNovo.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnNovo.setToolTipText("Novo");
 		btnNovo.setMargin(new Insets(0, 0, 0, 0));
