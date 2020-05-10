@@ -15,6 +15,8 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.border.EmptyBorder;
 
 import br.com.unicid.cadastroaluno.model.Aluno;
+import br.com.unicid.cadastroaluno.model.Disciplina;
+import br.com.unicid.cadastroaluno.model.DisciplinasAluno;
 import br.com.unicid.cadastroaluno.model.Pessoa;
 
 import javax.swing.JButton;
@@ -24,6 +26,10 @@ import java.awt.Cursor;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JTextPane;
+import javax.swing.border.LineBorder;
+import javax.swing.JTextArea;
+import java.awt.TextArea;
 
 public class frmNotasFaltas extends JFrame {
 
@@ -40,22 +46,35 @@ public class frmNotasFaltas extends JFrame {
 	public JLabel lblNome_1;
 	public JLabel lblNome_2;
 	public JComboBox cmbSemestre;
-	public JSpinner spinner;
+	public JSpinner txtFaltas;
 	public JLabel lblNome_3;
-	public JTextField textField;
+	public JTextField txtNota;
 	public JLabel lblNota;
 	public JPanel panel;
 	public JPanel pnlBoletim;
 	public JPanel panel_1;
-	public JButton btnNovo;
+	public JButton btnSalvar;
 	public JButton btnConsultar;
 	public JButton btnAlterar;
 	public JButton btnExcluir;
 	public JButton btnCancelar;
 	
 	public static Pessoa pessoa;
+	public static Disciplina disciplina;
+	public static DisciplinasAluno disciplinaAluno;
 	private FerramentasFormulario f;
 	protected boolean habilitarCampos;
+	public JLabel lblNewLabel_1;
+	public JLabel lblNome_4;
+	public JLabel lblDisciplina_1;
+	public JLabel lblNomeAluno;
+	public JLabel lblRgm;
+	public JLabel lblCurso;
+	public JLabel lblNome_5;
+	public JLabel lblNome_6;
+	public JLabel lblCampus;
+	public JLabel lblPeriodo;
+	public TextArea txtBoletim;
 
 	/**
 	 * Launch the application.
@@ -160,21 +179,21 @@ public class frmNotasFaltas extends JFrame {
 		cmbSemestre.setBounds(0, 289, 150, 30);
 		panel.add(cmbSemestre);
 		
-		spinner = new JSpinner();
-		spinner.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
-		spinner.setBounds(80, 355, 70, 30);
-		panel.add(spinner);
+		txtFaltas = new JSpinner();
+		txtFaltas.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
+		txtFaltas.setBounds(80, 355, 70, 30);
+		panel.add(txtFaltas);
 		
 		lblNome_3 = new JLabel("FALTAS");
 		lblNome_3.setBounds(80, 330, 42, 17);
 		panel.add(lblNome_3);
 		lblNome_3.setFont(new Font("Malgun Gothic", Font.BOLD, 12));
 		
-		textField = new JTextField();
-		textField.setBackground(Color.WHITE);
-		textField.setBounds(0, 355, 70, 30);
-		panel.add(textField);
-		textField.setColumns(10);
+		txtNota = new JTextField();
+		txtNota.setBackground(Color.WHITE);
+		txtNota.setBounds(0, 355, 70, 30);
+		panel.add(txtNota);
+		txtNota.setColumns(10);
 		
 		lblNota = new JLabel("NOTA");
 		lblNota.setBounds(0, 330, 34, 17);
@@ -186,29 +205,101 @@ public class frmNotasFaltas extends JFrame {
 		tabbedPane.addTab("BOLETIM", null, pnlBoletim, null);
 		pnlBoletim.setLayout(null);
 		
+		lblNewLabel_1 = new JLabel("RGM");
+		lblNewLabel_1.setFont(new Font("Malgun Gothic", Font.BOLD, 12));
+		lblNewLabel_1.setBounds(34, 41, 29, 17);
+		pnlBoletim.add(lblNewLabel_1);
+		
+		lblNome_4 = new JLabel("NOME");
+		lblNome_4.setFont(new Font("Malgun Gothic", Font.BOLD, 12));
+		lblNome_4.setBounds(26, 12, 37, 17);
+		pnlBoletim.add(lblNome_4);
+		
+		lblDisciplina_1 = new JLabel("CURSO");
+		lblDisciplina_1.setFont(new Font("Malgun Gothic", Font.BOLD, 12));
+		lblDisciplina_1.setBounds(22, 70, 41, 17);
+		pnlBoletim.add(lblDisciplina_1);
+		
+		lblNomeAluno = new JLabel("");
+		lblNomeAluno.setBackground(Color.WHITE);
+		lblNomeAluno.setFont(new Font("Arial", Font.PLAIN, 12));
+		lblNomeAluno.setBounds(73, 13, 260, 16);
+		pnlBoletim.add(lblNomeAluno);
+		
+		lblRgm = new JLabel("");
+		lblRgm.setBackground(Color.WHITE);
+		lblRgm.setFont(new Font("Arial", Font.PLAIN, 12));
+		lblRgm.setBounds(73, 42, 117, 16);
+		pnlBoletim.add(lblRgm);
+		
+		lblCurso = new JLabel("");
+		lblCurso.setBackground(Color.WHITE);
+		lblCurso.setFont(new Font("Arial", Font.PLAIN, 12));
+		lblCurso.setBounds(73, 71, 260, 16);
+		pnlBoletim.add(lblCurso);
+		
+		lblNome_5 = new JLabel("PER\u00CDODO");
+		lblNome_5.setFont(new Font("Malgun Gothic", Font.BOLD, 12));
+		lblNome_5.setBounds(160, 99, 52, 17);
+		pnlBoletim.add(lblNome_5);
+		
+		lblNome_6 = new JLabel("CAMPUS");
+		lblNome_6.setFont(new Font("Malgun Gothic", Font.BOLD, 12));
+		lblNome_6.setBounds(12, 99, 51, 17);
+		pnlBoletim.add(lblNome_6);
+		
+		lblCampus = new JLabel("");
+		lblCampus.setFont(new Font("Arial", Font.PLAIN, 12));
+		lblCampus.setBackground(Color.WHITE);
+		lblCampus.setBounds(73, 100, 75, 16);
+		pnlBoletim.add(lblCampus);
+		
+		lblPeriodo = new JLabel("");
+		lblPeriodo.setFont(new Font("Arial", Font.PLAIN, 12));
+		lblPeriodo.setBackground(Color.WHITE);
+		lblPeriodo.setBounds(224, 100, 75, 16);
+		pnlBoletim.add(lblPeriodo);
+		
+		txtBoletim = new TextArea();
+		txtBoletim.setBackground(Color.WHITE);
+		txtBoletim.setEditable(false);
+		txtBoletim.setBounds(10, 122, 325, 288);
+		pnlBoletim.add(txtBoletim);
+		
 		panel_1 = new JPanel();
 		panel_1.setLayout(null);
 		panel_1.setBackground(Color.WHITE);
 		panel_1.setBounds(52, 472, 340, 60);
 		contentPane.add(panel_1);
 		
-		btnNovo = new JButton("");
-		btnNovo.addActionListener(new ActionListener() {
+		btnSalvar = new JButton("");
+		btnSalvar.setIcon(new ImageIcon(getClass().getResource("save.png")));
+		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
+				String nota = txtNota.getText().replace(",", ".");
 				
-				
+				disciplina = new Disciplina();
+				disciplina.setCodDisciplina(cmbDiscplina.getSelectedItem().toString());
+				disciplina.setNomeDisciplina(cmbDiscplina.getSelectedItem().toString());
+				disciplina.setNotaDisciplina(Double.parseDouble(nota));
+				disciplina.setFaltasDisciplina(Integer.parseInt(txtFaltas.getValue().toString()));
+				disciplina.setSemestre(cmbSemestre.getSelectedItem().toString());
+				disciplinaAluno = new DisciplinasAluno();
+				disciplinaAluno.salvarNotaFaltas();
+				txtBoletim.setText(null);
+				disciplinaAluno = new DisciplinasAluno();
+				disciplinaAluno.exbirNotasFaltas(txtBoletim);
 			}
 		});
-		btnNovo.setSelectedIcon(new ImageIcon(frmNotasFaltas.class.getResource("/br/com/unicid/cadastroaluno/view/new.png")));
-		btnNovo.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnNovo.setToolTipText("Novo");
-		btnNovo.setMargin(new Insets(0, 0, 0, 0));
-		btnNovo.setFont(new Font("Malgun Gothic", Font.PLAIN, 11));
-		btnNovo.setBorder(null);
-		btnNovo.setBackground(Color.WHITE);
-		btnNovo.setBounds(0, 0, 60, 60);
-		panel_1.add(btnNovo);
+		btnSalvar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnSalvar.setToolTipText("Salvar");
+		btnSalvar.setMargin(new Insets(0, 0, 0, 0));
+		btnSalvar.setFont(new Font("Malgun Gothic", Font.PLAIN, 11));
+		btnSalvar.setBorder(null);
+		btnSalvar.setBackground(Color.WHITE);
+		btnSalvar.setBounds(0, 0, 60, 60);
+		panel_1.add(btnSalvar);
 		
 		btnConsultar = new JButton("");
 		btnConsultar.addActionListener(new ActionListener() {
@@ -220,11 +311,21 @@ public class frmNotasFaltas extends JFrame {
 				txtNome.setText(frmAluno.aluno.getNome());
 				txtCurso.setText(frmAluno.aluno.curso.getNomeCurso());
 				cmbDiscplina.setModel(new DefaultComboBoxModel(frmAluno.aluno.curso.buscarDisciplinas(cmbDiscplina).toArray()));
+				
+				lblNomeAluno.setText(frmAluno.aluno.getNome());
+				lblRgm.setText(Integer.toString(frmAluno.aluno.getRgm()));
+				lblCurso.setText(frmAluno.aluno.curso.getNomeCurso());
+				lblCampus.setText(frmAluno.aluno.getCampus());
+				lblPeriodo.setText(frmAluno.aluno.getPeriodo());
+				
+				disciplinaAluno = new DisciplinasAluno();
+				disciplinaAluno.exbirNotasFaltas(txtBoletim);
+
 			}
 		});
-		btnConsultar.setSelectedIcon(new ImageIcon("C:\\Users\\athos\\Google Drive\\Analise e desenvolvimento de sistemas\\3\u00BA Semestre\\Tecnicas de Programa\u00E7\u00E3o\\cadastro_alunos\\unicid.cadastroAluno\\CadastroAluno\\icons\\search.png"));
+		btnConsultar.setSelectedIcon(new ImageIcon());
 		btnConsultar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnConsultar.setIcon(new ImageIcon("C:\\Users\\athos\\Google Drive\\Analise e desenvolvimento de sistemas\\3\u00BA Semestre\\Tecnicas de Programa\u00E7\u00E3o\\cadastro_alunos\\unicid.cadastroAluno\\CadastroAluno\\icons\\search.png"));
+		btnConsultar.setIcon(new ImageIcon(getClass().getResource("search.png")));
 		btnConsultar.setToolTipText("Pesquisar");
 		btnConsultar.setMargin(new Insets(0, 0, 0, 0));
 		btnConsultar.setFont(new Font("Malgun Gothic", Font.PLAIN, 11));
@@ -235,9 +336,13 @@ public class frmNotasFaltas extends JFrame {
 		panel_1.add(btnConsultar);
 		
 		btnAlterar = new JButton("");
-		btnAlterar.setSelectedIcon(new ImageIcon("C:\\Users\\athos\\Google Drive\\Analise e desenvolvimento de sistemas\\3\u00BA Semestre\\Tecnicas de Programa\u00E7\u00E3o\\cadastro_alunos\\unicid.cadastroAluno\\CadastroAluno\\icons\\edit.png"));
+		btnAlterar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		btnAlterar.setSelectedIcon(new ImageIcon());
 		btnAlterar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnAlterar.setIcon(new ImageIcon("C:\\Users\\athos\\Google Drive\\Analise e desenvolvimento de sistemas\\3\u00BA Semestre\\Tecnicas de Programa\u00E7\u00E3o\\cadastro_alunos\\unicid.cadastroAluno\\CadastroAluno\\icons\\edit.png"));
+		btnAlterar.setIcon(new ImageIcon(getClass().getResource("edit.png")));
 		btnAlterar.setToolTipText("Alterar");
 		btnAlterar.setMargin(new Insets(0, 0, 0, 0));
 		btnAlterar.setFont(new Font("Malgun Gothic", Font.PLAIN, 11));
@@ -247,9 +352,9 @@ public class frmNotasFaltas extends JFrame {
 		panel_1.add(btnAlterar);
 		
 		btnExcluir = new JButton("");
-		btnExcluir.setSelectedIcon(new ImageIcon("C:\\Users\\athos\\Google Drive\\Analise e desenvolvimento de sistemas\\3\u00BA Semestre\\Tecnicas de Programa\u00E7\u00E3o\\cadastro_alunos\\unicid.cadastroAluno\\CadastroAluno\\icons\\delete.png"));
+		btnExcluir.setSelectedIcon(new ImageIcon());
 		btnExcluir.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnExcluir.setIcon(new ImageIcon("C:\\Users\\athos\\Google Drive\\Analise e desenvolvimento de sistemas\\3\u00BA Semestre\\Tecnicas de Programa\u00E7\u00E3o\\cadastro_alunos\\unicid.cadastroAluno\\CadastroAluno\\icons\\delete.png"));
+		btnExcluir.setIcon(new ImageIcon(getClass().getResource("delete.png")));
 		btnExcluir.setToolTipText("Excluir");
 		btnExcluir.setMargin(new Insets(0, 0, 0, 0));
 		btnExcluir.setFont(new Font("Malgun Gothic", Font.PLAIN, 11));
@@ -260,7 +365,7 @@ public class frmNotasFaltas extends JFrame {
 		
 		btnCancelar = new JButton("");
 		btnCancelar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnCancelar.setIcon(new ImageIcon("C:\\Users\\athos\\Google Drive\\Analise e desenvolvimento de sistemas\\3\u00BA Semestre\\Tecnicas de Programa\u00E7\u00E3o\\cadastro_alunos\\unicid.cadastroAluno\\CadastroAluno\\icons\\cancel.png"));
+		btnCancelar.setIcon(new ImageIcon(getClass().getResource("cancel.png")));
 		btnCancelar.setToolTipText("Cancelar");
 		btnCancelar.setMargin(new Insets(0, 0, 0, 0));
 		btnCancelar.setFont(new Font("Malgun Gothic", Font.PLAIN, 11));

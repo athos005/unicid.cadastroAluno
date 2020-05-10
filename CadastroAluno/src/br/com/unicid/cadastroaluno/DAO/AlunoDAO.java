@@ -34,18 +34,19 @@ public class AlunoDAO{
 	}
 
 	/*SALVAR ALUNO*/
-	
+
 	public void salvarAluno(Aluno aluno) throws Exception{
 
 		try {
 
-			String sql = "INSERT INTO aluno(rgm, periodo, cod_curso, cod_pessoa)" + "VALUES(?,?,?,?)";
+			String sql = "INSERT INTO aluno(rgm, periodo, campus, cod_curso, cod_pessoa)" + "VALUES(?,?,?,?,?)";
 
 			ps = conn.prepareStatement(sql);
 			ps.setInt(1, aluno.getRgm());
 			ps.setString(2, aluno.getPeriodo());
-			ps.setInt(3, aluno.curso.getCodCurso());
-			ps.setInt(4, aluno.getCodPessoa());
+			ps.setString(3, aluno.getCampus());
+			ps.setInt(4, aluno.curso.getCodCurso());
+			ps.setInt(5, aluno.getCodPessoa());
 			ps.executeUpdate();
 			ps.close();
 		}
@@ -53,11 +54,11 @@ public class AlunoDAO{
 			throw new Exception("Erro ao Salvar" + e.getMessage());
 		}
 	}
-	
+
 	/*CONSULTAR ALUNO*/
-	
+
 	public Aluno consultarAluno(int rgm) throws Exception {
-		
+
 		try {
 			ps = conn.prepareStatement("SELECT * FROM aluno WHERE rgm=?");
 			ps.setInt(1, rgm);
@@ -74,12 +75,12 @@ public class AlunoDAO{
 		catch (Exception e) {
 			throw new Exception("Erro ao consultar" + e.getMessage());
 		}
-		
+
 		return aluno;
 	}
 
 	/*ALTERAR ALUNO*/
-	
+
 	public void alterarAluno(Aluno aluno) throws Exception{
 
 		try {
@@ -90,16 +91,16 @@ public class AlunoDAO{
 			ps.setString(1, aluno.getPeriodo());
 			ps.setInt(2, aluno.getRgm());
 			ps.executeUpdate();
-			
+
 			ps.close();
 		}
 		catch(Exception e) {
 			throw new Exception("Erro ao Alterar" + e.getMessage());
 		}
 	}
-	
+
 	/*EXLUIR ALUNO*/
-	
+
 	public void excluirAluno(int rgm) throws Exception{
 		try {
 
@@ -107,38 +108,12 @@ public class AlunoDAO{
 
 			ps = conn.prepareStatement(sql);
 			ps.setInt(1, rgm);
-			
+
 			ps.executeUpdate();
 			ps.close();
 		}
 		catch(Exception e) {
 			throw new Exception("Erro ao Excluir" + e.getMessage());
 		}
-	}
-
-	/*LISTAR ALUNOS*/
-	
-	public List listarAlunos() throws Exception{
-
-		List<Aluno> listaAluno = new ArrayList<Aluno>();
-		
-		try{
-			
-			ps = conn.prepareStatement("SELECT * FROM aluno");
-			rs = ps.executeQuery();
-			
-			while(rs.next()) {
-				
-				aluno = frmAluno.aluno;
-				aluno.setPeriodo(rs.getString("periodo"));
-				aluno.setCodPessoa(rs.getInt("cod_pessoa"));
-				listaAluno.add(aluno);
-				ps.close();	
-			}
-		}
-		catch(Exception e) {
-			throw new Exception("Erro ao Listar" + e.getMessage());
-		}
-		return listaAluno;
 	}
 }

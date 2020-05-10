@@ -1,7 +1,16 @@
 package br.com.unicid.cadastroaluno.model;
 
+import java.awt.TextArea;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.JOptionPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextPane;
+
 import br.com.unicid.cadastroaluno.DAO.DisciplinaAlunoDAO;
 import br.com.unicid.cadastroaluno.view.frmAluno;
+import br.com.unicid.cadastroaluno.view.frmNotasFaltas;
 
 public class DisciplinasAluno{
 
@@ -38,7 +47,38 @@ public class DisciplinasAluno{
 		catch(Exception e){
 
 		}
-
 	}
 
+	public void salvarNotaFaltas() {
+
+		double nota = frmNotasFaltas.disciplina.getNotaDisciplina();
+		int falta = frmNotasFaltas.disciplina.getFaltasDisciplina();
+
+		try {
+
+			DAOdisciplinasAluno = new DisciplinaAlunoDAO();
+			DAOdisciplinasAluno.SalvarNotaFalta(nota, falta);
+			JOptionPane.showMessageDialog(null, "Salvo com sucesso a nota e faltas de " + "\n" +
+					frmNotasFaltas.disciplina.getNomeDisciplina());
+
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
+
+	public void exbirNotasFaltas(TextArea boletim) {
+		try {
+			
+			List<Disciplina> lista = new ArrayList<Disciplina>();
+			DAOdisciplinasAluno = new DisciplinaAlunoDAO();
+			lista = DAOdisciplinasAluno.listarAlunos();
+			for(Disciplina aluno : lista) {
+				boletim.append("Disciplina: " + aluno.getNomeDisciplina() + "\n" + "Semestre: " + aluno.getSemestre() + "\n");
+				boletim.append("Nota: " + aluno.getNotaDisciplina() + " Faltas: " + aluno.getFaltasDisciplina() + "\n");
+				boletim.append("............................................................................" + "\n");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }

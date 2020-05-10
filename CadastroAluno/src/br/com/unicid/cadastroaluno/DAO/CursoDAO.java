@@ -39,7 +39,6 @@ public class CursoDAO {
 			rs = ps.executeQuery();
 			listaCurso.add("Selecione -");
 			while(rs.next()) {
-
 				listaCurso.add(rs.getString("nome_curso"));
 			}
 			ps.close();
