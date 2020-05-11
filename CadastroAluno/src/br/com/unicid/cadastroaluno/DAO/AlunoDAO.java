@@ -116,4 +116,28 @@ public class AlunoDAO{
 			throw new Exception("Erro ao Excluir" + e.getMessage());
 		}
 	}
+	
+	
+	/*GERA RGM*/
+	
+	public int geraRGM() throws Exception {
+
+		int rgm = 0;
+		
+		try {
+			ps = conn.prepareStatement("SELECT cod_aluno FROM aluno ORDER BY cod_aluno DESC LIMIT 1");
+			rs = ps.executeQuery();
+			if(rs.next()) {
+				rgm = rs.getInt("cod_aluno");
+				ps.close();
+			}  
+		}
+		catch (Exception e) {
+			throw new Exception("Erro ao gerar" + e.getMessage());
+		}
+
+		rgm += 1000;
+		
+		return rgm;
+	}
 }

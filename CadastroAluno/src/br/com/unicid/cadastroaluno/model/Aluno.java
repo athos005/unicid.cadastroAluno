@@ -1,10 +1,12 @@
 package br.com.unicid.cadastroaluno.model;
 
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 
 import br.com.unicid.cadastroaluno.DAO.AlunoDAO;
 import br.com.unicid.cadastroaluno.DAO.CursoDAO;
+import br.com.unicid.cadastroaluno.DAO.DisciplinaDAO;
 import br.com.unicid.cadastroaluno.view.frmAluno;
 
 public class Aluno extends Pessoa{
@@ -25,12 +27,6 @@ public class Aluno extends Pessoa{
 	/*------------------------------------*/
 
 	public Aluno() {
-		curso = new Curso();
-		disciplinasAluno = new DisciplinasAluno();
-	}
-
-	public Aluno(String nomeAluno, String cpfAluno){
-		super(nomeAluno, cpfAluno);
 		curso = new Curso();
 		disciplinasAluno = new DisciplinasAluno();
 	}
@@ -58,6 +54,21 @@ public class Aluno extends Pessoa{
 		return this.campus;
 	}
 
+	public int getCampus(JComboBox combo) {
+
+		int index = 0;
+
+		if(this.campus == "Pinheiros") {
+			index = 1;
+		} else {
+			index = 2;
+		}
+
+		combo.setSelectedIndex(index);
+
+		return index;
+	}
+
 	public void setCampus(String campus) {
 		this.campus = campus;
 	}
@@ -68,19 +79,18 @@ public class Aluno extends Pessoa{
 
 	public void getPeriodo(JRadioButton matutino, JRadioButton vespertino, JRadioButton noturno) {
 
-		boolean selecionado = true;
+		String periodo = this.periodo;	
 
-
-		if(periodo == "Matutino") {
-			matutino.setSelected(selecionado);
+		if(periodo.equals("Matutino")) {
+			matutino.setSelected(true);
 		}
 		else 
-			if(periodo == "Vespertino") {
-				vespertino.setSelected(selecionado);
+			if(periodo.equals("Vespertino")) {
+				vespertino.setSelected(true);
 			}
 			else 
-				if(periodo == "Noturno") {
-					noturno.setSelected(selecionado);
+				if(periodo.equals("Noturno")) {
+					noturno.setSelected(true);
 				}
 
 	}
@@ -123,21 +133,28 @@ public class Aluno extends Pessoa{
 	 * as informações que foram setadas nos atributos da classe Aluno.
 	 */
 
-	public void consultarAluno(int rgmAluno){
+	public boolean consultarAluno(int rgmAluno){
+
+		boolean verificaConsulta = false;
 
 		try {
 			DAOaluno = new AlunoDAO();
-			DAOaluno.consultarAluno(rgmAluno);
-			connsultarCadastro();
-			//System.out.println(frmAluno.aluno.curso.getCodCurso());
-			cursoDAO = new CursoDAO();
-			cursoDAO.getNomeCurso(frmAluno.aluno.curso.getCodCurso());
-			
+			if(DAOaluno.consultarAluno(rgmAluno) == null) {
+				verificaConsulta = false;
+			}
+			else {
+				DAOaluno.consultarAluno(rgmAluno);
+				connsultarCadastro();
+
+				cursoDAO = new CursoDAO();
+				setNomeCurso(cursoDAO.getNomeCurso(frmAluno.aluno.curso.getCodCurso()));
+				verificaConsulta = true;
+			}
 		}
 		catch (Exception e) {
 			e.printStackTrace();
 		}
-
+		return verificaConsulta;
 	}
 
 	public void alteraeAluno(){
@@ -156,12 +173,32 @@ public class Aluno extends Pessoa{
 	public void excluirAluno(int rgmAluno){
 
 		try {
+
+			DisciplinasAluno disciplina = new DisciplinasAluno();
+			disciplina.excluirNotas(rgmAluno);
+
 			DAOaluno = new AlunoDAO();
 			DAOaluno.excluirAluno(rgmAluno);
 			excluirCadastrato();
+
+			JOptionPane.showMessageDialog(null, "Excluido com Sucesso");
 		}
 		catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	public int geraRGM() {
+
+		int rgm = 0;
+
+		try {
+			DAOaluno = new AlunoDAO();
+			rgm = DAOaluno.geraRGM();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return rgm;
 	}
 }

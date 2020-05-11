@@ -42,7 +42,7 @@ CREATE TABLE ALUNO(
 COD_ALUNO INT AUTO_INCREMENT,
 RGM INT,
 PERIODO VARCHAR(10),
-CAMPUS VARCHAR(8),
+CAMPUS VARCHAR(9),
 COD_PESSOA INT,
 COD_CURSO INT,
 CONSTRAINT PK_ALUNO PRIMARY KEY(COD_ALUNO, RGM),
@@ -84,8 +84,12 @@ select * from curso;
 
 select * from disciplina_aluno;
 
+SELECT * FROM aluno ORDER BY COD_ALUNO DESC;
+
 delete from aluno where COD_aluno > 0;
 
 delete from pessoa where COD_PESSOA > 0;
 
 delete from endereco where COD_ENDERECO > 0;
+
+delete from disciplina_aluno where COD_DISCIPLINA_ALUNO > 0;

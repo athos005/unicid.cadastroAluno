@@ -55,7 +55,7 @@ public class DisciplinaAlunoDAO {
 
 		Calendar ano = Calendar.getInstance();
 		String anoAtual = Integer.toString(ano.get(Calendar.YEAR));
-		
+
 		try {
 
 			String sql = "UPDATE disciplina_aluno SET nota=?, faltas=?, semestre=? WHERE rgm=? AND cod_disciplina=?";
@@ -76,10 +76,10 @@ public class DisciplinaAlunoDAO {
 	/*LISTAR ALUNOS*/
 
 	public List listarAlunos() throws Exception{
-		
+
 		List<Disciplina> listaAluno = new ArrayList<>();
 		disciplina = new Disciplina();
-		
+
 		try{
 			ps = conn.prepareStatement("SELECT * FROM disciplina_aluno where rgm=?");
 			ps.setInt(1, frmAluno.aluno.getRgm());
@@ -92,7 +92,7 @@ public class DisciplinaAlunoDAO {
 				String semestre = rs.getString("semestre");
 				listaAluno.add( new Disciplina(cod, nome, nota, semestre, faltas));
 			}
-			
+
 			ps.close();
 			return listaAluno;
 		}
@@ -100,4 +100,22 @@ public class DisciplinaAlunoDAO {
 			throw new Exception("Erro ao Listar" + e.getMessage());
 		}
 	}
+
+	public void excluirNotas(int rgm) throws Exception{
+
+		try {
+
+			String sql = "DELETE FROM disciplina_aluno WHERE rgm=? and COD_DISCIPLINA_ALUNO > 0;";
+
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, rgm);
+
+			ps.executeUpdate();
+			ps.close();
+		}
+		catch(Exception e) {
+			throw new Exception("Erro ao Excluir" + e.getMessage());
+		}
+	}
+
 }

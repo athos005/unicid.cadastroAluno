@@ -59,7 +59,7 @@ public class frmHome extends JFrame {
 	public frmHome() {
 		setTitle("Cadastro Aluno");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 450, 471);
 
 		menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -70,10 +70,9 @@ public class frmHome extends JFrame {
 		mntmSalvar = new JMenuItem("Novo");
 		mntmSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
-				FerramentasFormulario f = new FerramentasFormulario();
-				
+
 				try {
+					FerramentasFormulario f = new FerramentasFormulario();
 					frmAluno novoAluno = new frmAluno();
 					novoAluno.setVisible(true);
 					f.desabilitaComponentes(novoAluno.btnAlterar, novoAluno.btnConsultar, novoAluno.btnExcluir);
@@ -86,11 +85,26 @@ public class frmHome extends JFrame {
 		});
 		mnAluno.add(mntmSalvar);
 
+		mntmConsultar = new JMenuItem("Consultar");
+		mntmConsultar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				try {
+					FerramentasFormulario f = new FerramentasFormulario();
+					frmAluno novoAluno = new frmAluno();
+					novoAluno.setVisible(true);
+					f.desabilitaComponentes(novoAluno.btnAlterar, novoAluno.btnNovo, novoAluno.btnExcluir);
+
+				} catch (ParseException e1) {
+
+					e1.printStackTrace();
+				}
+			}
+		});
+		mnAluno.add(mntmConsultar);
+
 		mntmAlterar = new JMenuItem("Alterar");
 		mnAluno.add(mntmAlterar);
-
-		mntmConsultar = new JMenuItem("Consultar");
-		mnAluno.add(mntmConsultar);
 
 		mntmExcluir = new JMenuItem("Excluir");
 		mnAluno.add(mntmExcluir);

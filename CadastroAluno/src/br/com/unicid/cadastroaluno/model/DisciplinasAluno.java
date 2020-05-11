@@ -68,7 +68,7 @@ public class DisciplinasAluno{
 
 	public void exbirNotasFaltas(TextArea boletim) {
 		try {
-			
+
 			List<Disciplina> lista = new ArrayList<Disciplina>();
 			DAOdisciplinasAluno = new DisciplinaAlunoDAO();
 			lista = DAOdisciplinasAluno.listarAlunos();
@@ -80,5 +80,11 @@ public class DisciplinasAluno{
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	public void excluirNotas(int rgm) throws Exception {
+		
+		DAOdisciplinasAluno = new DisciplinaAlunoDAO();
+		DAOdisciplinasAluno.excluirNotas(rgm);
 	}
 }
