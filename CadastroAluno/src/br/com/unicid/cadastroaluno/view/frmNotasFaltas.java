@@ -282,6 +282,7 @@ public class frmNotasFaltas extends JFrame {
 		pnlBoletim.add(lblPeriodo);
 
 		txtBoletim = new TextArea();
+		txtBoletim.setForeground(Color.BLACK);
 		txtBoletim.setBackground(Color.WHITE);
 		txtBoletim.setEditable(false);
 		txtBoletim.setBounds(10, 122, 325, 288);

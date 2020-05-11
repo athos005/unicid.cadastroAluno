@@ -35,7 +35,7 @@ public class CursoDAO {
 
 		try {
 
-			ps = conn.prepareStatement("SELECT * FROM curso");
+			ps = conn.prepareStatement("SELECT * FROM curso ORDER BY nome_curso");
 			rs = ps.executeQuery();
 			listaCurso.add("Selecione -");
 			while(rs.next()) {

@@ -53,7 +53,7 @@ public class DisciplinaDAO {
 		List<String> listaNomesDisciplinas = new ArrayList<String>();
 
 		try {
-			ps = conn.prepareStatement("SELECT nome_disciplina FROM disciplina WHERE cod_curso=?");
+			ps = conn.prepareStatement("SELECT nome_disciplina FROM disciplina WHERE cod_curso=? ORDER BY nome_disciplina");
 			ps.setInt(1, codCurso);
 			rs = ps.executeQuery();
 			listaNomesDisciplinas.add("Selecione -");

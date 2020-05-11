@@ -68,6 +68,6 @@ CONSTRAINT PK_UF PRIMARY KEY (COD_UF)
 );
 INSERT INTO UF(SIGLA) VALUES ("AC"),("AL"),("AP"),("AM"),("BA"),("CE"),("DF"),("ES"),("GO"),("MA"),("MT"),("MS"),("MG"),("PA"),("PB"),("PR"),("PE"),("PI"),("RJ"),("RN"),("RS"),("RO"),("RR"),("SC"),("SP"),("SE"),("TO");
 
-INSERT INTO CURSO(NOME_CURSO) VALUES ("Análise de Sistemas"), ("Banco de Dados"), ("Ciências da Computação"), ("Redes");
+INSERT INTO CURSO(NOME_CURSO) VALUES ("Análise de Sistemas"), ("Odontologia"), ("Arquitetura");
 
-INSERT INTO DISCIPLINA(NOME_DISCIPLINA, COD_CURSO) VALUES("Sistemas Operacionais", 1), ("Técninas de Programação", 1), ("Algoritimos", 3), ("Cabeamento", 4);
+INSERT INTO DISCIPLINA(NOME_DISCIPLINA, COD_CURSO) VALUES("Técnicas de Programação", 1), ("Banco de Dados", 1), ("Java Orientado a Objetos", 1), ("HTML e CSS", 1), ("PHP", 1);

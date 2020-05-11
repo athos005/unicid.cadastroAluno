@@ -501,7 +501,7 @@ public class frmAluno extends JFrame {
 						aluno.setCelular(txtCelular.getText());
 						aluno.setTelefone(txtTelefone.getText());
 						aluno.setRgm(Integer.parseInt(txtRgm.getText()));
-						aluno.setPeriodo(rdbMatutino, rdbNoturno, rdbNoturno);
+						aluno.setPeriodo(rdbMatutino, rdbVespertino, rdbNoturno);
 						aluno.setCampus(cmbUnidade.getSelectedItem().toString());
 						aluno.setCep(txtCep.getText());
 						aluno.setEndereco(txtEndereco.getText());
