@@ -7,18 +7,28 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 
+import com.sun.glass.ui.Window;
 import com.sun.org.apache.bcel.internal.generic.FMUL;
 
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+
 import java.awt.Window.Type;
 import java.awt.Frame;
 import java.awt.Dialog.ModalExclusionType;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.awt.event.ActionEvent;
+import java.awt.Color;
+import java.awt.Font;
+import javax.swing.KeyStroke;
+import java.awt.event.KeyEvent;
+import java.awt.event.InputEvent;
+import java.awt.Cursor;
 
 public class frmHome extends JFrame {
 
@@ -31,11 +41,9 @@ public class frmHome extends JFrame {
 	public JMenuItem mntmConsultar;
 	public JMenuItem mntmExcluir;
 	public JMenu mnNotasEFaltas;
-	public JMenuItem mntmSalvar_1;
-	public JMenuItem mntmAlterar_1;
-	public JMenuItem mntmConsultar_1;
-	public JMenuItem mntmExcluir_1;
 
+	public String local;
+	public JMenuItem mntmNewMenuItem;
 	/**
 	 * Launch the application.
 	 */
@@ -62,20 +70,39 @@ public class frmHome extends JFrame {
 		setBounds(100, 100, 450, 471);
 
 		menuBar = new JMenuBar();
+		menuBar.setBorder(null);
+		menuBar.setBackground(Color.LIGHT_GRAY);
 		setJMenuBar(menuBar);
 
-		mnAluno = new JMenu("Aluno");
+		mnAluno = new JMenu("ALUNO");
+		mnAluno.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		mnAluno.setFont(new Font("Malgun Gothic", Font.BOLD, 14));
+		mnAluno.setBorder(null);
 		menuBar.add(mnAluno);
 
 		mntmSalvar = new JMenuItem("Novo");
+		mntmSalvar.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, InputEvent.CTRL_MASK));
 		mntmSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-
+				
 				try {
 					FerramentasFormulario f = new FerramentasFormulario();
 					frmAluno novoAluno = new frmAluno();
+					novoAluno.txtRgm.setText(Integer.toString(novoAluno.aluno.geraRGM()));
+					if(novoAluno.habilitarCampos == false)
+					{
+						f.limparTudoAluno();
+						f.habilitaTudoAluno();
+						novoAluno.txtRgm.setEnabled(false);
+						novoAluno.txtRgm.setBorder(null);
+						novoAluno.btnNovo.setToolTipText("Cadastrar");
+						f.desabilitaComponentes(novoAluno.btnConsultar, novoAluno.btnAlterar, novoAluno.btnExcluir);
+
+						novoAluno.habilitarCampos = true;
+					}
+
+					novoAluno.setLocationRelativeTo(null);
 					novoAluno.setVisible(true);
-					f.desabilitaComponentes(novoAluno.btnAlterar, novoAluno.btnConsultar, novoAluno.btnExcluir);
 
 				} catch (ParseException e) {
 
@@ -86,14 +113,29 @@ public class frmHome extends JFrame {
 		mnAluno.add(mntmSalvar);
 
 		mntmConsultar = new JMenuItem("Consultar");
+		mntmConsultar.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_MASK));
 		mntmConsultar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+
 				try {
+
 					FerramentasFormulario f = new FerramentasFormulario();
 					frmAluno novoAluno = new frmAluno();
+
+					if(novoAluno.habilitarCampos == false) {
+						
+						f.limparTudoAluno();
+						f.desabilitaTudo();
+						f.desabilitaComponentes(novoAluno.btnAlterar, novoAluno.btnExcluir, novoAluno.btnNovo);
+						novoAluno.txtRgm.setBorder(new LineBorder(Color.BLUE));
+						novoAluno.txtRgm.setEnabled(true);
+						novoAluno.txtRgm.setText(null);
+						novoAluno.habilitarCampos = true;
+						local = "consultar";
+					}
+					
+					novoAluno.setLocationRelativeTo(null);
 					novoAluno.setVisible(true);
-					f.desabilitaComponentes(novoAluno.btnAlterar, novoAluno.btnNovo, novoAluno.btnExcluir);
 
 				} catch (ParseException e1) {
 
@@ -104,29 +146,101 @@ public class frmHome extends JFrame {
 		mnAluno.add(mntmConsultar);
 
 		mntmAlterar = new JMenuItem("Alterar");
+		mntmAlterar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				try {
+
+					FerramentasFormulario f = new FerramentasFormulario();
+					frmAluno novoAluno = new frmAluno();
+
+					if(novoAluno.habilitarCampos == false) {
+						
+						f.limparTudoAluno();
+						f.desabilitaTudo();
+						f.desabilitaComponentes(novoAluno.btnAlterar, novoAluno.btnExcluir, novoAluno.btnNovo);
+						novoAluno.txtRgm.setBorder(new LineBorder(Color.BLUE));
+						novoAluno.txtRgm.setEnabled(true);
+						novoAluno.txtRgm.setText(null);
+						novoAluno.habilitarCampos = true;
+						local = "consultar";
+					}
+					
+					novoAluno.setLocationRelativeTo(null);
+					novoAluno.setVisible(true);
+
+				} catch (ParseException e1) {
+
+					e1.printStackTrace();
+				}
+				
+			}
+		});
 		mnAluno.add(mntmAlterar);
 
 		mntmExcluir = new JMenuItem("Excluir");
+		mntmExcluir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+
+					FerramentasFormulario f = new FerramentasFormulario();
+					frmAluno novoAluno = new frmAluno();
+
+					if(novoAluno.habilitarCampos == false) {
+						
+						f.limparTudoAluno();
+						f.desabilitaTudo();
+						f.desabilitaComponentes(novoAluno.btnAlterar, novoAluno.btnExcluir, novoAluno.btnNovo);
+						novoAluno.txtRgm.setBorder(new LineBorder(Color.BLUE));
+						novoAluno.txtRgm.setEnabled(true);
+						novoAluno.txtRgm.setText(null);
+						novoAluno.habilitarCampos = true;
+						local = "consultar";
+					}
+					
+					novoAluno.setLocationRelativeTo(null);
+					novoAluno.setVisible(true);
+
+				} catch (ParseException e1) {
+
+					e1.printStackTrace();
+				}
+			}
+		});
 		mnAluno.add(mntmExcluir);
 
-		mnNotasEFaltas = new JMenu("Notas e Faltas");
+		mnNotasEFaltas = new JMenu("NOTAS & FALTAS");
+		mnNotasEFaltas.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		mnNotasEFaltas.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			
+			}
+		});
+		mnNotasEFaltas.setFont(new Font("Malgun Gothic", Font.BOLD, 14));
+		mnNotasEFaltas.setBorder(null);
 		menuBar.add(mnNotasEFaltas);
+		
+		mntmNewMenuItem = new JMenuItem("Cadastrar/Consultar");
+		mntmNewMenuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frmNotasFaltas notasEfaltas = new frmNotasFaltas();
+				notasEfaltas.setLocationRelativeTo(null);
+				notasEfaltas.setVisible(true);
+			}
+		});
+		mnNotasEFaltas.add(mntmNewMenuItem);
 
-		mntmSalvar_1 = new JMenuItem("Cadastrar");
-		mnNotasEFaltas.add(mntmSalvar_1);
-
-		mntmAlterar_1 = new JMenuItem("Alterar");
-		mnNotasEFaltas.add(mntmAlterar_1);
-
-		mntmConsultar_1 = new JMenuItem("Consultar");
-		mnNotasEFaltas.add(mntmConsultar_1);
-
-		mntmExcluir_1 = new JMenuItem("Excluir");
-		mnNotasEFaltas.add(mntmExcluir_1);
-
-		mnAjuda = new JMenu("Ajuda");
+		mnAjuda = new JMenu("AJUDA");
+		mnAjuda.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(null, "Entre em contato no e-mail \n athosphelipe005@gmail.com");
+			}
+		});
+		mnAjuda.setFont(new Font("Malgun Gothic", Font.BOLD, 14));
+		mnAjuda.setBorder(null);
 		menuBar.add(mnAjuda);
 		contentPane = new JPanel();
+		contentPane.setBackground(Color.WHITE);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);

@@ -89,7 +89,11 @@ public class frmNotasFaltas extends JFrame {
 			public void run() {
 				try {
 					frmNotasFaltas frame = new frmNotasFaltas();
-					frame.setVisible(true);
+					frame.setVisible(false);
+					
+					frmHome home = new frmHome();
+					home.setVisible(true);
+					home.setExtendedState(JFrame.MAXIMIZED_BOTH);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -105,7 +109,7 @@ public class frmNotasFaltas extends JFrame {
 		setMinimumSize(new Dimension(450, 600));
 		setMaximumSize(new Dimension(450, 600));
 		setResizable(false);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 535);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.WHITE);

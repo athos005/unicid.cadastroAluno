@@ -132,9 +132,7 @@ public class FerramentasFormulario {
 
 		boolean validador = false;
 		String texto;
-		
 		for(JTextField args : comp) {
-			args.getText().replace("[\\D]", "");
 			texto = args.getText();
 			if (texto.equals("")) {
 				args.setBorder(new LineBorder(Color.RED));

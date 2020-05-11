@@ -120,7 +120,12 @@ public class frmAluno extends JFrame {
 			public void run() {
 				try {
 					frmAluno frame = new frmAluno();
-					frame.setVisible(true);
+					frame.setLocationRelativeTo(null);
+					frame.setVisible(false);
+					
+					frmHome home = new frmHome();
+					home.setVisible(true);
+					home.setExtendedState(JFrame.MAXIMIZED_BOTH);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -133,6 +138,7 @@ public class frmAluno extends JFrame {
 	 * @throws ParseException 
 	 */
 	public frmAluno() throws ParseException {
+		setLocationByPlatform(true);
 		setMinimumSize(new Dimension(450, 600));
 		setResizable(false);
 		setTitle("Aluno");
@@ -477,7 +483,6 @@ public class frmAluno extends JFrame {
 		btnNovo.setBorder(null);
 		btnNovo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-
 
 				txtRgm.setText(Integer.toString(aluno.geraRGM()));
 				f = new FerramentasFormulario();

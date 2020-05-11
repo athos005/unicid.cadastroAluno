@@ -71,25 +71,3 @@ INSERT INTO UF(SIGLA) VALUES ("AC"),("AL"),("AP"),("AM"),("BA"),("CE"),("DF"),("
 INSERT INTO CURSO(NOME_CURSO) VALUES ("Análise de Sistemas"), ("Banco de Dados"), ("Ciências da Computação"), ("Redes");
 
 INSERT INTO DISCIPLINA(NOME_DISCIPLINA, COD_CURSO) VALUES("Sistemas Operacionais", 1), ("Técninas de Programação", 1), ("Algoritimos", 3), ("Cabeamento", 4);
-
-select COD_CURSO from curso where NOME_CURSO="Análise de Sistemas";
-
-select * from pessoa;
-
-select * from aluno;
-
-select * from endereco;
-
-select * from curso;
-
-select * from disciplina_aluno;
-
-SELECT * FROM aluno ORDER BY COD_ALUNO DESC;
-
-delete from aluno where COD_aluno > 0;
-
-delete from pessoa where COD_PESSOA > 0;
-
-delete from endereco where COD_ENDERECO > 0;
-
-delete from disciplina_aluno where COD_DISCIPLINA_ALUNO > 0;
