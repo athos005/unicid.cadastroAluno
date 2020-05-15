@@ -57,8 +57,9 @@ public class Aluno extends Pessoa{
 	public int getCampus(JComboBox combo) {
 
 		int index = 0;
+		String campus = this.campus;
 
-		if(this.campus == "Pinheiros") {
+		if(campus.equals("Pinheiros")) {
 			index = 1;
 		} else {
 			index = 2;

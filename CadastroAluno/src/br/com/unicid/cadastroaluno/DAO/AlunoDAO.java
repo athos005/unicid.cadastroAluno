@@ -85,11 +85,12 @@ public class AlunoDAO{
 
 		try {
 
-			String sql = "UPDATE aluno SET periodo=? WHERE rgm=?";
+			String sql = "UPDATE aluno SET periodo=?, campus=? WHERE rgm=?";
 
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, aluno.getPeriodo());
-			ps.setInt(2, aluno.getRgm());
+			ps.setString(2, aluno.getCampus());
+			ps.setInt(3, aluno.getRgm());
 			ps.executeUpdate();
 
 			ps.close();

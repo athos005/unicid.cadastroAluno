@@ -44,6 +44,7 @@ public class frmHome extends JFrame {
 
 	public String local;
 	public JMenuItem mntmNewMenuItem;
+	public JMenuItem mntmNewMenuItem_1;
 	/**
 	 * Launch the application.
 	 */
@@ -233,12 +234,20 @@ public class frmHome extends JFrame {
 		mnAjuda = new JMenu("AJUDA");
 		mnAjuda.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(null, "Entre em contato no e-mail \n athosphelipe005@gmail.com");
+				
 			}
 		});
 		mnAjuda.setFont(new Font("Malgun Gothic", Font.BOLD, 14));
 		mnAjuda.setBorder(null);
 		menuBar.add(mnAjuda);
+		
+		mntmNewMenuItem_1 = new JMenuItem("Suporte");
+		mntmNewMenuItem_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(null, "Entre em contato no e-mail \n athosphelipe005@gmail.com");
+			}
+		});
+		mnAjuda.add(mntmNewMenuItem_1);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.WHITE);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

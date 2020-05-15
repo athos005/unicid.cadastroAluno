@@ -90,7 +90,7 @@ public class frmNotasFaltas extends JFrame {
 				try {
 					frmNotasFaltas frame = new frmNotasFaltas();
 					frame.setVisible(false);
-					
+
 					frmHome home = new frmHome();
 					home.setVisible(true);
 					home.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -301,7 +301,7 @@ public class frmNotasFaltas extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 
 				f = new FerramentasFormulario();
-				
+
 				double nota = 0.0;
 				boolean validaNota;
 				String n = txtNota.getText().replaceAll(",", ".");
@@ -312,27 +312,27 @@ public class frmNotasFaltas extends JFrame {
 				} catch (Exception e) {
 					validaNota = false;
 				}
-				if(f.validaCombo(cmbDiscplina, cmbSemestre) == false) {
-					JOptionPane.showMessageDialog(null, "\tCampos obrigatórios" + "\n" + "não foram selecionados");
-				}
-				else {
 
-				} if(nota < 0 || nota > 10 || validaNota == false) {
-					JOptionPane.showMessageDialog(null, "Nota inválida!" + "\n" + "Digite novamente");
-					txtNota.setText(null);
-				}
-				else {
-					disciplina = new Disciplina();
-					disciplina.setCodDisciplina(cmbDiscplina.getSelectedItem().toString());
-					disciplina.setNomeDisciplina(cmbDiscplina.getSelectedItem().toString());
-					disciplina.setNotaDisciplina(nota);
-					disciplina.setFaltasDisciplina(Integer.parseInt(txtFaltas.getValue().toString()));
-					disciplina.setSemestre(cmbSemestre.getSelectedItem().toString());
-					disciplinaAluno = new DisciplinasAluno();
-					disciplinaAluno.salvarNotaFaltas();
-					txtBoletim.setText(null);
-					disciplinaAluno = new DisciplinasAluno();
-					disciplinaAluno.exbirNotasFaltas(txtBoletim);
+				if(f.validaCombo(cmbDiscplina, cmbSemestre) == false) {
+					JOptionPane.showMessageDialog(null, "Campos obrigatórios" + "\n" + "não foram selecionados ou preenchidos");
+				} else {
+					if(nota < 0 || nota > 10 || validaNota == false) {
+						JOptionPane.showMessageDialog(null, "Nota inválida!" + "\n" + "Digite novamente");
+						txtNota.setText(null);
+					}
+					else {
+						disciplina = new Disciplina();
+						disciplina.setCodDisciplina(cmbDiscplina.getSelectedItem().toString());
+						disciplina.setNomeDisciplina(cmbDiscplina.getSelectedItem().toString());
+						disciplina.setNotaDisciplina(nota);
+						disciplina.setFaltasDisciplina(Integer.parseInt(txtFaltas.getValue().toString()));
+						disciplina.setSemestre(cmbSemestre.getSelectedItem().toString());
+						disciplinaAluno = new DisciplinasAluno();
+						disciplinaAluno.salvarNotaFaltas();
+						txtBoletim.setText(null);
+						disciplinaAluno = new DisciplinasAluno();
+						disciplinaAluno.exbirNotasFaltas(txtBoletim);
+					}
 				}
 			}
 		});
@@ -348,7 +348,9 @@ public class frmNotasFaltas extends JFrame {
 		btnConsultar = new JButton("");
 		btnConsultar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				
+				txtBoletim.setText(null);
+				
 				int rgm = 0;
 
 				try {
@@ -382,6 +384,8 @@ public class frmNotasFaltas extends JFrame {
 						f.habilitaComponentes(cmbDiscplina, cmbSemestre);
 
 						f.habilitaComponentes(txtNota);
+						txtNota.setText(null);
+						txtFaltas.setValue(0);
 						txtFaltas.setEnabled(true);
 						btnSalvar.setEnabled(true);
 						tabbedPane.setEnabledAt(1, true);

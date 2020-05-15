@@ -1,3 +1,7 @@
+CREATE SCHEMA 'cadastroaluno';
+
+USE 'cadastroaluno'
+
 CREATE TABLE ENDERECO(
 COD_ENDERECO INT AUTO_INCREMENT,
 CEP CHAR(8),
@@ -66,8 +70,11 @@ COD_UF INT AUTO_INCREMENT,
 SIGLA CHAR(2),
 CONSTRAINT PK_UF PRIMARY KEY (COD_UF)
 );
+
 INSERT INTO UF(SIGLA) VALUES ("AC"),("AL"),("AP"),("AM"),("BA"),("CE"),("DF"),("ES"),("GO"),("MA"),("MT"),("MS"),("MG"),("PA"),("PB"),("PR"),("PE"),("PI"),("RJ"),("RN"),("RS"),("RO"),("RR"),("SC"),("SP"),("SE"),("TO");
 
 INSERT INTO CURSO(NOME_CURSO) VALUES ("Análise de Sistemas"), ("Odontologia"), ("Arquitetura");
 
 INSERT INTO DISCIPLINA(NOME_DISCIPLINA, COD_CURSO) VALUES("Técnicas de Programação", 1), ("Banco de Dados", 1), ("Java Orientado a Objetos", 1), ("HTML e CSS", 1), ("PHP", 1);
+
+INSERT INTO DISCIPLINA(NOME_DISCIPLINA, COD_CURSO) VALUES("Topográfia", 3), ("Design de Interiores", 3), ("Projeto I", 3), ("Prediais", 3), ("Paisagismo", 3);
