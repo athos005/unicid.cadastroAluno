@@ -63,3 +63,7 @@ O projeto deve aprensetar as seguintes telas:
     
   - Ajuda
     - Sobre
+
+## Video do Projeto Finalizado 
+
+https://www.youtube.com/watch?v=LwO1OsXuaF4
