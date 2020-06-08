@@ -1,5 +1,5 @@
 # cadastro_alunos
-Tela de cadastro de alunos e notas (atividade faculdade)
+Sistema de cadastro de alunos e suas notas (atividade faculdade)
 
 Utilizando a linguagem de programação JAVA e o Banco de Dados mySQL, desenvolver o Sistema de Cadastrado de Aluno. 
 
